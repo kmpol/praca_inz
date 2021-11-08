@@ -32,15 +32,11 @@ const ItemListContainer = styled.div`
     flex: 3;
 `
 
-const SummaryContainer = styled.div`
-    flex: 1;
-`
-
 const Product = styled.div`
     display: flex;
     width: 100%;
     height: 256px;
-    border: 1px solid gray;
+    border-bottom: 1px solid gray;
     margin-bottom: 10px;
 `
 
@@ -111,6 +107,52 @@ const Amount = styled.p`
 
 `
 
+const SummaryContainer = styled.div`
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    margin: 0 8px;
+    border-radius: 5px;
+`
+
+const SummaryTitle = styled.h3`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: 300;
+    font-size: 36px;
+    margin-bottom: 32px;
+`
+
+const ProductsTotalItem = styled.div`
+    display: flex;
+    width: 100%;
+`
+
+const ProductsTotalText = styled.p`
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 32px;
+
+    font-weight: 500;
+    font-size: 24px;
+`
+
+const ProductsTotalPrice = styled.p`
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 32px;
+
+    font-weight: 300;
+    font-size: 24px;
+`
+
 const CartPage = () => {
     let cart = useSelector(state => state.cart)
     const dispatch = useDispatch()
@@ -150,7 +192,7 @@ const CartPage = () => {
                                             <ProductQuantity>{product.quantityOfItem}</ProductQuantity>
                                             <Add onClick={() => { onAddClick(product._id) }} />
                                         </QuantityContainer>
-                                        <Amount>${product.quantityOfItem * product.price}</Amount>
+                                        <Amount>${(product.quantityOfItem * product.price).toFixed(2)}</Amount>
                                     </PriceDetails>
                                 </Product>
                             ))
@@ -161,7 +203,11 @@ const CartPage = () => {
                     }
                 </ItemListContainer>
                 <SummaryContainer>
-
+                    <SummaryTitle>SUMMARY</SummaryTitle>
+                    <ProductsTotalItem>
+                        <ProductsTotalText>Total:</ProductsTotalText>
+                        <ProductsTotalPrice>${(cart.total).toFixed(2)}</ProductsTotalPrice>
+                    </ProductsTotalItem>
                 </SummaryContainer>
             </MainContainer>
 
