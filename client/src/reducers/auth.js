@@ -4,7 +4,7 @@ export default (profile = { authInfo: null }, action) => {
             localStorage.setItem('profile', JSON.stringify(action?.payload))
             return { ...profile, authInfo: action?.payload }
         case 'LOGOUT_USER':
-            localStorage.clear()
+            localStorage.removeItem('profile')
             return { ...profile }
         default:
             return profile
