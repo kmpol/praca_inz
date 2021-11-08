@@ -15,7 +15,7 @@ export const getProduct = (id) => async (dispatch) => {
     try {
         const { data } = await api.getProduct(id)
 
-        dispatch({ type: 'GET_PRODUCT', payload: data })
+        return data
 
     } catch (e) {
         console.log(e.message)

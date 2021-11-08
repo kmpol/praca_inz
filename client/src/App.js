@@ -13,6 +13,7 @@ import ProductPage from './pages/ProductPage'
 
 //Styles
 import './styles.css'
+import CartPage from './pages/CartPage'
 
 const App = () => {
     return (
@@ -22,6 +23,7 @@ const App = () => {
                     <Route exact path="/" component={HomePage} />
                     <Route path="/products" component={ProductsPage} />
                     <Route path="/product/:id" component={ProductPage} />
+                    <Route path="/cart" component={CartPage} />
 
                     <Route path="/login" component={LoginPage} />
                     <Route path="/register" component={RegisterPage} />

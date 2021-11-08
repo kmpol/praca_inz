@@ -5,8 +5,8 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons'
 const Container = styled.div`
     width: 100%;
     height: 100vh;
-    /* max-height: 1080px;
-    max-width: 1920px; */
+    max-height: 1080px;
+    max-width: 1920px;
     display: flex;
     position: relative;
     overflow: hidden;
@@ -28,6 +28,7 @@ const ArrowContainer = styled.div`
     right: ${props => props.direction === 'right' && "15px"};
     cursor: pointer;
     z-index: 2;
+    opacity: 0.5;
 `
 
 const SlideContainer = styled.div`
@@ -106,7 +107,6 @@ const Slider = () => {
                         <Info>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat modi ratione explicabo repellendus neque consequuntur.</Info>
                     </InfoContainer>
                 </Slide>
-
             </SlideContainer>
             <ArrowContainer direction="right" onClick={() => { handleArrowClick("right") }}>
                 <ArrowRightOutlined />

@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 
 import Navbar from '../components/Navbar'
 import { getProduct, getProducts } from '../actions/products'
+import { addProduct } from '../actions/cart'
 
 const Container = styled.div`
     display: flex;
     width: 100%;
-    height: 100vh;
+    height: 85vh;
 `
 
 const ImageContainer = styled.div`
@@ -18,6 +19,7 @@ const ImageContainer = styled.div`
     align-items: center;
     justify-content: center;
     margin: 16px;
+    overflow: hidden;
 `
 
 const Image = styled.img`
@@ -40,7 +42,7 @@ const ProductName = styled.h2`
 
 const ProductDescription = styled.p`
     margin: 24px 12px;
-    flex: 2;
+    flex: 3;
     display: flex;
     align-items: flex-start;
 `
@@ -51,19 +53,47 @@ const ProductPrice = styled.p`
     align-items: flex-start;
 `
 
+const AddToCartButton = styled.button`
+    padding: 16px 0px;
+    width: 25%;
+    background-color: #fff;
+    cursor: pointer;
+`
+
+const Quantity = styled.input`
+    width: 25%;
+    margin: 12px 0px;
+`
+
 const ProductPage = () => {
     const dispatch = useDispatch()
+
+    const [product, setProduct] = useState()
+    const [quantityOfItem, setquantityOfItem] = useState(1)
+    const [error, setError] = useState(false)
+
+    const cart = useSelector(state => state.cart)
 
     const location = useLocation()
     const id = location.pathname.replace("/product/", "")
 
-    useEffect(() => {
+    useEffect(async () => {
         console.log('KOCHAM BEATKE')
-        dispatch(getProducts())
-    }, [])
+        setProduct(await dispatch(getProduct(id)))
+    }, [id])
 
-    const products = useSelector(state => state.products)
-    const product = products.find((product) => product._id === id)
+    const onClickButton = (e) => {
+        const payload = {
+            product: { ...product, quantityOfItem: parseInt(quantityOfItem) },
+            quantity: 1,
+            total: (product.price * quantityOfItem)
+        }
+        if (!!cart.products.find((item) => item._id === product._id)) {
+            return setError(true)
+        }
+        setError(false)
+        dispatch(addProduct(payload))
+    }
 
     return (
         <div>
@@ -78,6 +108,9 @@ const ProductPage = () => {
                             <ProductName>{product.name}</ProductName>
                             <ProductDescription>{product.description}</ProductDescription>
                             <ProductPrice>Price: <strong>${product.price}</strong></ProductPrice>
+                            Quantity:<Quantity onChange={(e) => setquantityOfItem(e.target.value)} value={quantityOfItem} />
+                            <AddToCartButton onClick={onClickButton}>ADD TO CART</AddToCartButton>
+                            {error && "Product already exists in the cart!"}
                         </InfoContainer>
                     </Container >
                 </>

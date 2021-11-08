@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
-import { logoutUser } from '../actions/auth'
 import styled from 'styled-components'
+import { ShoppingCartOutlined } from '@material-ui/icons'
+import { Badge } from '@material-ui/core'
+
+import { logoutUser } from '../actions/auth'
 import { setGender } from '../actions/filters'
 
 const Container = styled.div`
@@ -50,12 +53,17 @@ const Greeting = styled.p`
     margin-right: 15px;
 `
 
+const BadgeStyled = styled(Badge)`
+        
+`
+
 const Navbar = () => {
 
     const dispatch = useDispatch()
     const history = useHistory()
 
     const [profile, setProfile] = useState(JSON.parse(localStorage?.getItem('profile')))
+    const cart = useSelector(state => state.cart)
 
     const onLogoutClick = (e) => {
         dispatch(logoutUser())
@@ -74,6 +82,8 @@ const Navbar = () => {
         history.push('/')
     }
 
+    console.log('NAVBAR, CART', cart)
+
     return (
         <Container>
             <MainCategoriesContainer>
@@ -86,6 +96,14 @@ const Navbar = () => {
             </MainCategoriesContainer>
             <Logo onClick={onLogoClick}>myShop</Logo>
             <ButtonContainer>
+                <LinkWrap>
+                    <StyledLink to="/cart">
+                        <BadgeStyled badgeContent={cart.products.length} color={'primary'}>
+                            <ShoppingCartOutlined />
+                        </BadgeStyled>
+                    </StyledLink>
+                </LinkWrap>
+
                 {
                     profile ? (
                         <>
