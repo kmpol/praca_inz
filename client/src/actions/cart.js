@@ -12,3 +12,7 @@ export const subtractQuantity = (id) => ({
     type: "SUBTRACT_QUANTITY_OF_ITEM",
     id
 })
+
+export const clearCart = () => ({
+    type: "CLEAR"
+})

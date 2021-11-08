@@ -5,9 +5,36 @@ const cartDefaultState = {
     total: 0
 }
 
+const storeCart = (cartItems) => {
+    const cart = cartItems
+    localStorage.setItem('cart', JSON.stringify(cart))
+}
+
+const getCart = () => {
+    const cart = JSON.parse(localStorage.getItem('cart'))
+    if (cart) {
+        return cart
+    } else {
+        return {
+            products: [],
+            quantity: 0,
+            total: 0
+        }
+    }
+
+}
+
+
 const cartReducer = (state = cartDefaultState, action) => {
+    const cart = getCart()
+
     switch (action.type) {
         case 'ADD_PRODUCT':
+            storeCart({
+                products: [...cart.products, action.payload.product],
+                quantity: cart.quantity + action.payload.quantity,
+                total: cart.total + action.payload.total
+            })
             return {
                 ...state,
                 products: [...state.products, action.payload.product],
@@ -16,25 +43,42 @@ const cartReducer = (state = cartDefaultState, action) => {
             }
         case 'ADD_QUANTITY_OF_ITEM':
             const id = action.id
-            const productToEdit = state.products.find((product) => product._id === id)
-            const newProducts = state.products.filter((product) => product._id != productToEdit._id)
+            const productToEdit = cart.products.find((product) => product._id === id)
+            const newProducts = cart.products.filter((product) => product._id != productToEdit._id)
             productToEdit.quantityOfItem += 1
             const newProductsToAdd = [...newProducts, productToEdit]
+            storeCart({
+                products: [...newProductsToAdd],
+                quantity: cart.quantity,
+                total: cart.total + productToEdit.price
+            })
             return {
                 ...state,
                 products: [...newProductsToAdd],
-                total: state.total + productToEdit.price
+                total: cart.total + productToEdit.price
             }
         case 'SUBTRACT_QUANTITY_OF_ITEM':
             const idSubtract = action.id
-            const productToEditSubtract = state.products.find((product) => product._id === idSubtract)
-            const newProductsSubtract = state.products.filter((product) => product._id != productToEditSubtract._id)
+            const productToEditSubtract = cart.products.find((product) => product._id === idSubtract)
+            const newProductsSubtract = cart.products.filter((product) => product._id != productToEditSubtract._id)
             productToEditSubtract.quantityOfItem -= 1
             const newProductsToAddSubtract = [...newProductsSubtract, productToEditSubtract]
+            storeCart({
+                products: [...newProductsToAddSubtract],
+                quantity: cart.quantity,
+                total: cart.total - productToEditSubtract.price
+            })
             return {
                 ...state,
                 products: [...newProductsToAddSubtract],
-                total: state.total - productToEditSubtract.price
+                total: cart.total - productToEditSubtract.price
+            }
+        case 'CLEAR':
+            localStorage.removeItem('cart')
+            return {
+                products: [],
+                quantity: 0,
+                total: 0
             }
         default:
             return state

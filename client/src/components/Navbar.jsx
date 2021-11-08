@@ -58,12 +58,27 @@ const BadgeStyled = styled(Badge)`
 `
 
 const Navbar = () => {
+    const cartFromStorage = localStorage.getItem('cart') ?
+        JSON.parse(localStorage.getItem('cart')) : {
+            products: [],
+            quantity: 0,
+            total: 0
+        }
 
     const dispatch = useDispatch()
     const history = useHistory()
 
     const [profile, setProfile] = useState(JSON.parse(localStorage?.getItem('profile')))
-    const cart = useSelector(state => state.cart)
+    const cartRedux = useSelector(state => state.cart)
+    const cart = cartFromStorage
+
+    const badgeContent = () => {
+        if (cart.products.length > cartRedux.products.length) {
+            return cart.products.length
+        } else {
+            return cartRedux.products.length
+        }
+    }
 
     const onLogoutClick = (e) => {
         dispatch(logoutUser())
@@ -98,7 +113,7 @@ const Navbar = () => {
             <ButtonContainer>
                 <LinkWrap>
                     <StyledLink to="/cart">
-                        <BadgeStyled badgeContent={cart.products.length} color={'primary'}>
+                        <BadgeStyled badgeContent={badgeContent()} color={'primary'}>
                             <ShoppingCartOutlined />
                         </BadgeStyled>
                     </StyledLink>

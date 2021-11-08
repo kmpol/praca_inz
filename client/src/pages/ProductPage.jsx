@@ -66,13 +66,21 @@ const Quantity = styled.input`
 `
 
 const ProductPage = () => {
+    const cartFromStorage = localStorage.getItem('cart') ?
+        JSON.parse(localStorage.getItem('cart')) : {
+            products: [],
+            quantity: 0,
+            total: 0
+        }
+
     const dispatch = useDispatch()
 
     const [product, setProduct] = useState()
     const [quantityOfItem, setquantityOfItem] = useState(1)
     const [error, setError] = useState(false)
 
-    const cart = useSelector(state => state.cart)
+    const cart = cartFromStorage
+    const cartRedux = useSelector(state => state.cart)
 
     const location = useLocation()
     const id = location.pathname.replace("/product/", "")
@@ -88,6 +96,7 @@ const ProductPage = () => {
             quantity: 1,
             total: (product.price * quantityOfItem)
         }
+
         if (!!cart.products.find((item) => item._id === product._id)) {
             return setError(true)
         }

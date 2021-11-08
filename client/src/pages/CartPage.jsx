@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { Add, Remove } from '@material-ui/icons'
 
-import { addQuantity, subtractQuantity } from '../actions/cart'
+import { addQuantity, subtractQuantity, clearCart } from '../actions/cart'
 
 const Container = styled.div`
     display: flex;
@@ -21,6 +21,11 @@ const Title = styled.h2`
     align-items: center;
     justify-content: center;
     margin-top: 24px;
+`
+
+const ClearCart = styled.p`
+    padding: 10px;
+    cursor: pointer;
 `
 
 const MainContainer = styled.div`
@@ -154,7 +159,16 @@ const ProductsTotalPrice = styled.p`
 `
 
 const CartPage = () => {
-    let cart = useSelector(state => state.cart)
+    const cartFromStorage = localStorage.getItem('cart') ?
+        JSON.parse(localStorage.getItem('cart')) : {
+            products: [],
+            quantity: 0,
+            total: 0
+        }
+
+    // let cart = useSelector(state => state.cart)
+    const cart = cartFromStorage
+    const cartRedux = useSelector(state => state.cart)
     const dispatch = useDispatch()
 
     console.log('CARTPAGE, CART', cart)
@@ -167,14 +181,19 @@ const CartPage = () => {
         dispatch(subtractQuantity(id))
     }
 
+    const onClearCartClick = () => {
+        dispatch(clearCart())
+    }
+
     return (
         <Container>
             <Navbar />
             <Title>Your cart</Title>
+            <ClearCart onClick={onClearCartClick}>Clear the cart</ClearCart>
             <MainContainer>
                 <ItemListContainer>
                     {
-                        cart.products.length > 0 ? (
+                        cart?.products?.length > 0 ? (
                             cart.products.sort((a, b) => a.price - b.price).map((product) => (
                                 <Product key={product._id}>
                                     <Image src={product.img} />
@@ -206,7 +225,7 @@ const CartPage = () => {
                     <SummaryTitle>SUMMARY</SummaryTitle>
                     <ProductsTotalItem>
                         <ProductsTotalText>Total:</ProductsTotalText>
-                        <ProductsTotalPrice>${(cart.total).toFixed(2)}</ProductsTotalPrice>
+                        <ProductsTotalPrice>${(cart?.total).toFixed(2)}</ProductsTotalPrice>
                     </ProductsTotalItem>
                 </SummaryContainer>
             </MainContainer>
