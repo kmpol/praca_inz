@@ -97,7 +97,8 @@ const Navbar = () => {
         history.push('/')
     }
 
-    console.log('NAVBAR, CART', cart)
+    console.log('NAVBAR, CART LOCASTORAGE', cart)
+    console.log('NAVBAR, CART REDUX', cartRedux)
 
     return (
         <Container>

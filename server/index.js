@@ -5,18 +5,29 @@ import dotenv from 'dotenv'
 
 import productRouter from './routes/products.js'
 import userRouter from './routes/users.js'
+import createCheckoutSession from './routes/checkout.js'
+import webhook from './routes/webhook.js'
 
 dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 5000
 
+
+app.use(express.json({
+    verify: (req, res, buffer) => req['rawBody'] = buffer
+}))
 app.use(express.json({ limit: '50mb', extended: true }));
+
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 app.use(cors())
 
 app.use('/api/products', productRouter)
 app.use('/api/users', userRouter)
+
+//Stripe payment - no router
+app.post('/api/create-checkout-session', createCheckoutSession)
+app.post('/webhook', webhook)
 
 mongoose
     .connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })

@@ -10,10 +10,14 @@ import ForgotPasswordPageSuccess from './pages/ForgotPasswordPageSuccess'
 import ResetPasswordPage from './pages/ResetPasswordPage'
 import ProductsPage from './pages/ProductsPage'
 import ProductPage from './pages/ProductPage'
+import CartPage from './pages/CartPage'
+import Checkout from './checkout/Checkout'
+import CheckoutSuccess from './checkout/CheckoutSuccess'
+import CheckoutCancel from './checkout/CheckoutCancel'
 
 //Styles
 import './styles.css'
-import CartPage from './pages/CartPage'
+
 
 const App = () => {
     return (
@@ -24,6 +28,9 @@ const App = () => {
                     <Route path="/products" component={ProductsPage} />
                     <Route path="/product/:id" component={ProductPage} />
                     <Route path="/cart" component={CartPage} />
+                    <Route path="/checkout" component={Checkout} />
+                    <Route path="/success" component={CheckoutSuccess} />
+                    <Route path="/canceled" component={CheckoutCancel} />
 
                     <Route path="/login" component={LoginPage} />
                     <Route path="/register" component={RegisterPage} />

@@ -3,10 +3,12 @@ import React from 'react'
 
 import Navbar from '../components/Navbar'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 import { useEffect } from 'react'
 import { Add, Remove } from '@material-ui/icons'
 
 import { addQuantity, subtractQuantity, clearCart } from '../actions/cart'
+import { useState } from 'react'
 
 const Container = styled.div`
     display: flex;
@@ -158,7 +160,19 @@ const ProductsTotalPrice = styled.p`
     font-size: 24px;
 `
 
+const CheckoutButton = styled.button`
+    margin: 24px 32px;
+    padding: 10px 0px;
+    background-color: #000;
+    border: none;
+    color: white;
+    cursor: pointer;
+`
+
 const CartPage = () => {
+
+    const [error, setError] = useState(false)
+
     const cartFromStorage = localStorage.getItem('cart') ?
         JSON.parse(localStorage.getItem('cart')) : {
             products: [],
@@ -170,8 +184,10 @@ const CartPage = () => {
     const cart = cartFromStorage
     const cartRedux = useSelector(state => state.cart)
     const dispatch = useDispatch()
+    const history = useHistory()
 
-    console.log('CARTPAGE, CART', cart)
+    console.log('CARTPAGE, CART LOCALSTORAGE', cart)
+    console.log('CARTPAGE, CART REDUX', cartRedux)
 
     const onAddClick = (id) => {
         dispatch(addQuantity(id))
@@ -183,6 +199,14 @@ const CartPage = () => {
 
     const onClearCartClick = () => {
         dispatch(clearCart())
+    }
+
+    const onCheckoutClick = (e) => {
+        if (cart.products.length < 1) {
+            return setError(true)
+        } else {
+            history.push('/checkout')
+        }
     }
 
     return (
@@ -227,6 +251,8 @@ const CartPage = () => {
                         <ProductsTotalText>Total:</ProductsTotalText>
                         <ProductsTotalPrice>${(cart?.total).toFixed(2)}</ProductsTotalPrice>
                     </ProductsTotalItem>
+                    <CheckoutButton onClick={onCheckoutClick}>Checkout</CheckoutButton>
+                    {error && "Your cart is empty!"}
                 </SummaryContainer>
             </MainContainer>
 
