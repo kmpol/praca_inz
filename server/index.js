@@ -5,6 +5,8 @@ import dotenv from 'dotenv'
 
 import productRouter from './routes/products.js'
 import userRouter from './routes/users.js'
+import orderRouter from './routes/orders.js'
+
 import createCheckoutSession from './routes/checkout.js'
 import webhook from './routes/webhook.js'
 
@@ -24,6 +26,7 @@ app.use(cors())
 
 app.use('/api/products', productRouter)
 app.use('/api/users', userRouter)
+app.use('/api/orders', orderRouter)
 
 //Stripe payment - no router
 app.post('/api/create-checkout-session', createCheckoutSession)

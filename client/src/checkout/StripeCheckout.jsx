@@ -26,7 +26,8 @@ const CheckoutButton = styled.button`
 
 const StripeCheckout = () => {
     const [cart, setCart] = useState(JSON?.parse(localStorage?.getItem('cart')))
-    const [email, setEmail] = useState(JSON.parse(localStorage?.getItem('profile'))?.user?.email)
+    const [id, setId] = useState(JSON?.parse(localStorage?.getItem('profile'))?.user?._id)
+    const [email, setEmail] = useState(JSON.parse(localStorage?.getItem('profile'))?.user?.email || "")
     const stripe = useStripe()
 
     const handleCheckoutSubmit = async (e) => {
@@ -45,7 +46,7 @@ const StripeCheckout = () => {
             }
         })
         const response = await api.checkout({
-            line_items, customer_email: email
+            line_items, customer_email: email, client_reference_id: id || "no_account"
         })
         console.log(response)
 

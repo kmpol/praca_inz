@@ -4,7 +4,7 @@ dotenv.config()
 
 const createCheckoutSession = async (req, res) => {
     const domainUrl = process.env.WEB_APP_URL
-    const { line_items, customer_email } = req.body;
+    const { line_items, customer_email, client_reference_id } = req.body;
     if (!line_items || !customer_email) return res.status(400).send({ error: 'Invalid parameters' })
 
     let session;
@@ -13,6 +13,7 @@ const createCheckoutSession = async (req, res) => {
         session = await stripeAPI.checkout.sessions.create({
             payment_method_types: ['card'],
             mode: 'payment',
+            client_reference_id,
             line_items,
             customer_email,
             success_url: `${domainUrl}/success?session_id={CHECKOUT_SESSION_ID}`,

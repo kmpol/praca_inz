@@ -1,5 +1,7 @@
 import stripe from 'stripe';
 import dotenv from 'dotenv'
+import postData from '../utils/fetch.js'
+
 dotenv.config()
 stripe(process.env.STRIPE_KEY)
 
@@ -36,8 +38,32 @@ const webhook = (request, response) => {
             // handlePaymentMethodAttached(paymentMethod);
             break;
         case 'checkout.session.completed':
-            const session = event.data.object;
-            console.log('event data', session)
+            const session = event.data.object
+
+            const info = {
+                address: {
+                    name: session.shipping.name,
+                    ...session.shipping.address,
+                    email: session.customer_email
+                },
+                payment: {
+                    amount: session.amount_total,
+                    currency: session.currency
+                },
+                status: "new",
+                owner: session.client_reference_id
+            }
+
+            console.log('INFO', info)
+            console.log("SESSION", session)
+
+            postData(process.env.WEB_APP_URL_SERVER + "/api/orders", info)
+                .then(data => {
+                    console.log('DATA', data); // JSON data parsed by `data.json()` call
+                }).catch((e) => {
+                    console.log(e)
+                })
+
         default:
             // Unexpected event type
             console.log(`Unhandled event type ${event.type}.`);
