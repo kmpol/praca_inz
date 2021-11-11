@@ -32,6 +32,10 @@ app.use('/api/orders', orderRouter)
 app.post('/api/create-checkout-session', createCheckoutSession)
 app.post('/webhook', webhook)
 
+app.get('/', (req, res) => {
+    res.send("Hello to myShop API")
+})
+
 mongoose
     .connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {

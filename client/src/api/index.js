@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = 'http://localhost:5000/api'
+const url = 'https://myshop-karol-malicki.herokuapp.com/api'
 
 const API = axios.create({ baseURL: url })
 
