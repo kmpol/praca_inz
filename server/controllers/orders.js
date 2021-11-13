@@ -88,3 +88,20 @@ export const getOrdersClient = async (req, res) => {
     }
 
 }
+
+export const updateOrderStatus = async (req, res) => {
+    const id = req.params.id
+    const status = req.body.status
+
+    try {
+        const order = await Order.findById(id)
+        if (!order) return res.sttus(404).send({ error: "Order not found" })
+
+        order.status = status
+        await order.save()
+
+        res.status(200).send(order)
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
+}

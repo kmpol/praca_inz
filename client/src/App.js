@@ -11,12 +11,20 @@ import ResetPasswordPage from './pages/ResetPasswordPage'
 import ProductsPage from './pages/ProductsPage'
 import ProductPage from './pages/ProductPage'
 import CartPage from './pages/CartPage'
+import NotFoundPage from './pages/NotFoundPage'
+
 import Checkout from './checkout/Checkout'
 import CheckoutSuccess from './checkout/CheckoutSuccess'
 import CheckoutCancel from './checkout/CheckoutCancel'
 
+import DashboardPage from './pages/admin/DashboardPage'
+import UsersPage from './pages/admin/UsersPage'
+import OrdersPage from './pages/admin/OrdersPage'
+
+
 //Styles
 import './styles.css'
+
 
 
 const App = () => {
@@ -25,19 +33,28 @@ const App = () => {
             <Router>
                 <Switch>
                     <Route exact path="/" component={HomePage} />
-                    <Route path="/products" component={ProductsPage} />
+                    <Route exact path="/products" component={ProductsPage} />
                     <Route path="/product/:id" component={ProductPage} />
-                    <Route path="/cart" component={CartPage} />
-                    <Route path="/checkout" component={Checkout} />
-                    <Route path="/success" component={CheckoutSuccess} />
-                    <Route path="/canceled" component={CheckoutCancel} />
+                    <Route exact path="/cart" component={CartPage} />
+                    <Route exact path="/checkout" component={Checkout} />
+                    <Route exact path="/success" component={CheckoutSuccess} />
+                    <Route exact path="/canceled" component={CheckoutCancel} />
 
-                    <Route path="/login" component={LoginPage} />
-                    <Route path="/register" component={RegisterPage} />
+                    <Route exact path="/login" component={LoginPage} />
+                    <Route exact path="/register" component={RegisterPage} />
                     <Route exact path="/forgotpassword" component={ForgotPasswordPage} />
                     <Route path="/forgotpassword/success" component={ForgotPasswordPageSuccess} />
                     <Route path="/resetpassword/:resetToken" component={ResetPasswordPage} />
+
+                    <Route exact path="/admin/dashboard" component={DashboardPage} />
+                    <Route path="/admin/dashboard/users" component={UsersPage} />
+                    <Route path="/admin/dashboard/orders" component={OrdersPage} />
+
+                    <Route path="*" component={NotFoundPage} />
+
+
                 </Switch>
+
             </Router>
         </>
     )
