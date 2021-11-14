@@ -26,7 +26,7 @@ const OrderList = () => {
             {
                 adminOrders.length > 0 ? (
                     OrderSelector(adminOrders, { ...filters }).map((order) => {
-                        return <Order key={order._id} order={order} status={order.status} />
+                        return <Order key={order._id} order={order} status={order.status} products={order.products} />
                     })
                 ) : (
                     "No orders"

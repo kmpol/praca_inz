@@ -1,11 +1,36 @@
 import stripe from 'stripe';
 import dotenv from 'dotenv'
 import postData from '../utils/fetch.js'
+import { getStripeProducts } from '../utils/expand.js'
+import getDataInfo from '../utils/getFetch.js'
 
 dotenv.config()
 stripe(process.env.STRIPE_KEY)
 
-const webhook = (request, response) => {
+const getMyPRODUCTS = async (converted) => {
+    const array = []
+
+    for (let i = 0; i < converted.length; i++) {
+        const id = converted[i].product_id
+        const quantity = converted[i].quantity
+        const response = await getDataInfo(`https://api.stripe.com/v1/products/${id}`)
+        array.push({
+            product: response.metadata.productId,
+            quantity
+        })
+    }
+    return array
+}
+
+const createOrder = async (info) => {
+    await postData(process.env.WEB_APP_URL_SERVER + "/api/orders", info)
+    // .then(data => {
+    //     console.log('DATA', data); // JSON data parsed by `data.json()` call
+    // }).catch((e) => {
+    //     console.log(e)
+    // })
+}
+const webhook = async (request, response) => {
     let event = request.body;
     // Only verify the event if you have an endpoint secret defined.
     // Otherwise use the basic event deserialized with JSON.parse
@@ -40,29 +65,46 @@ const webhook = (request, response) => {
         case 'checkout.session.completed':
             const session = event.data.object
 
-            const info = {
-                address: {
-                    name: session.shipping.name,
-                    ...session.shipping.address,
-                    email: session.customer_email
-                },
-                payment: {
-                    amount: session.amount_total,
-                    currency: session.currency
-                },
-                status: "new",
-                owner: session.client_reference_id
+            let products;
+            try {
+                products = await getStripeProducts(session.id)
+            } catch (e) {
+
             }
+            const converted = products.map((product) => ({
+                product_id: product.price.product,
+                quantity: product.quantity
+            }))
+            let myProductsId;
+            let info;
+
+            try {
+                myProductsId = await getMyPRODUCTS(converted)
+                info = {
+                    address: {
+                        name: session.shipping.name,
+                        ...session.shipping.address,
+                        email: session.customer_email
+                    },
+                    payment: {
+                        amount: session.amount_total,
+                        currency: session.currency
+                    },
+                    status: "new",
+                    owner: session.client_reference_id,
+                    products: myProductsId
+                }
+
+            } catch (e) {
+
+            }
+            await createOrder(info)
+
+
 
             console.log('INFO', info)
             console.log("SESSION", session)
 
-            postData(process.env.WEB_APP_URL_SERVER + "/api/orders", info)
-                .then(data => {
-                    console.log('DATA', data); // JSON data parsed by `data.json()` call
-                }).catch((e) => {
-                    console.log(e)
-                })
 
         default:
             // Unexpected event type

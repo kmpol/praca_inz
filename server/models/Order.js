@@ -11,7 +11,14 @@ const orderSchema = new mongoose.Schema({
     owner: {
         type: String,
         ref: 'User'
-    }
+    },
+    products: [{
+        product: {
+            type: mongoose.Schema.Types.ObjectId, ref: 'Product'
+        },
+        quantity: Number
+
+    }]
 }, {
     timestamps: true
 })

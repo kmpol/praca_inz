@@ -70,7 +70,7 @@ export const createOrder = async (req, res) => {
 
 export const getOrders = async (req, res) => {
     try {
-        const orders = await Order.find()
+        const orders = await Order.find().populate("products.product").exec()
         res.status(200).send(orders)
     } catch (e) {
         res.status(500).send(e.message)
@@ -94,8 +94,8 @@ export const updateOrderStatus = async (req, res) => {
     const status = req.body.status
 
     try {
-        const order = await Order.findById(id)
-        if (!order) return res.sttus(404).send({ error: "Order not found" })
+        const order = await Order.findById(id).populate("products.product").exec()
+        if (!order) return res.status(404).send({ error: "Order not found" })
 
         order.status = status
         await order.save()

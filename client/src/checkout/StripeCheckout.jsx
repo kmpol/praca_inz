@@ -40,7 +40,9 @@ const StripeCheckout = () => {
                     unit_amount: item.price * 100, //Amount must be in cents
                     product_data: {
                         name: item.name,
-                        images: []
+                        metadata: {
+                            productId: item._id
+                        }
                     }
                 }
             }

@@ -50,24 +50,36 @@ const PaymentAmount = styled.p`
 
 `
 
+const Products = styled.div`
+    flex: 2;
+    
+`
+
+const ProductShortDesc = styled.p`
+`
+
+const ProductQuantity = styled.p``
+const ProductName = styled.p``
+
 const OrderStatusContainer = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-
+    margin-left: 10px;
 `
 
 const OrderName = styled.h4`
 
 `
 
-const Select = styled.select``
+const Select = styled.select`
+    width: 50%;
+`
 
 const Option = styled.option``
 
-const Order = ({ order, status }) => {
+const Order = ({ order, status, products }) => {
 
     const dispatch = useDispatch()
 
@@ -91,7 +103,21 @@ const Order = ({ order, status }) => {
                     <PaymentTitle>Amount:</PaymentTitle>
                     <PaymentAmount>{((order.payment.amount) / 100).toFixed(2)} {(order.payment.currency).toUpperCase()}</PaymentAmount>
                 </PaymentContainer>
-                {/* <OrderStatus>{order.status || "unknown"}</OrderStatus> */}
+                <Products>
+                    {
+                        products.length > 0 ? (
+                            products.map((product) => {
+                                return (
+                                    <div key={product._id}>
+                                        <ProductName>{product.quantity}x {product.product.name} {product.product.gender} {product.product.size} {product.product.color} ({product.product._id})</ProductName>
+                                    </div>
+                                )
+                            })
+                        ) : (
+                            "No products :( ?????"
+                        )
+                    }
+                </Products>
                 <OrderStatusContainer>
                     <OrderName>Status: {status}</OrderName>
                     <Select id="status" onChange={onStatusSelect} defaultValue={status}>

@@ -37,6 +37,12 @@ const productSchema = new mongoose.Schema({
     timestamps: true
 })
 
+productSchema.virtual('order', {
+    ref: 'Order',
+    localField: '_id',
+    foreignField: 'products'
+})
+
 const Product = mongoose.model('Product', productSchema)
 
 export default Product
