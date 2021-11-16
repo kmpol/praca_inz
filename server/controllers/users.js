@@ -125,3 +125,14 @@ export const resetPassword = async (req, res) => {
         res.status(500).send(e.message)
     }
 }
+
+//Admin routes
+export const getUsers = async (req, res) => {
+    try {
+        const users = await User.find({})
+        if (!users) return res.status(404).send({ error: "Users not found" })
+        res.status(200).send(users)
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
+}
