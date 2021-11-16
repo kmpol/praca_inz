@@ -100,12 +100,6 @@ const webhook = async (request, response) => {
             }
             await createOrder(info)
 
-
-
-            console.log('INFO', info)
-            console.log("SESSION", session)
-
-
         default:
             // Unexpected event type
             console.log(`Unhandled event type ${event.type}.`);

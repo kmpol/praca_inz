@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 import { updateOrderStatus } from '../../actions/admin/orders'
 
@@ -8,7 +9,21 @@ const Container = styled.div`
     width: 100%;
     padding: 10px;
     border: 1px solid gray;
+    position: relative;
+`
+
+const StyledLink = styled(Link)`
+    position: absolute;
+    top: 10px;
+    left: 260px;
     cursor: pointer;
+    text-decoration: none;
+    color: black;
+
+    &:hover{
+        text-decoration: underline;
+        color: gray;
+    }
 `
 const OrderId = styled.p`
 `
@@ -59,6 +74,7 @@ const ProductShortDesc = styled.p`
 `
 
 const ProductQuantity = styled.p``
+
 const ProductName = styled.p``
 
 const OrderStatusContainer = styled.div`
@@ -91,6 +107,7 @@ const Order = ({ order, status, products }) => {
         <Container>
             <OrderId>ID: {order._id}</OrderId>
             <OrderDate>{order.createdAt}</OrderDate>
+            <StyledLink to={`/admin/dashboard/orders/${order._id}`}>Details</StyledLink>
             <InfoContainer>
                 <AddressContainer>
                     <AddressTitle>Address:</AddressTitle>
@@ -128,7 +145,7 @@ const Order = ({ order, status, products }) => {
                 </OrderStatusContainer>
             </InfoContainer>
 
-        </Container>
+        </Container >
     )
 }
 

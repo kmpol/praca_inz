@@ -11,6 +11,16 @@ export const getOrders = () => async (dispatch) => {
     }
 }
 
+export const getOrder = (id) => async (dispatch) => {
+    try {
+        const { data } = await api.getOrder(id)
+
+        dispatch({ type: 'GET_ORDER', payload: data })
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+
 export const updateOrderStatus = (status, id) => async (dispatch) => {
     try {
         const { data } = await api.updateOrderStatus({ "status": status }, id)

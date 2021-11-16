@@ -20,6 +20,7 @@ import CheckoutCancel from './checkout/CheckoutCancel'
 import DashboardPage from './pages/admin/DashboardPage'
 import UsersPage from './pages/admin/UsersPage'
 import OrdersPage from './pages/admin/OrdersPage'
+import OrderPage from './pages/admin/OrderPage'
 
 
 //Styles
@@ -48,7 +49,8 @@ const App = () => {
 
                     <Route exact path="/admin/dashboard" component={DashboardPage} />
                     <Route path="/admin/dashboard/users" component={UsersPage} />
-                    <Route path="/admin/dashboard/orders" component={OrdersPage} />
+                    <Route exact path="/admin/dashboard/orders" component={OrdersPage} />
+                    <Route path="/admin/dashboard/orders/:id" component={OrderPage} />
 
                     <Route path="*" component={NotFoundPage} />
 

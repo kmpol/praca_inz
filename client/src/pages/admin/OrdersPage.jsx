@@ -10,7 +10,7 @@ const Container = styled.div`
     width: 100%;
 `
 
-const OrderContainer = styled.div`
+const OrdersContainer = styled.div`
     display: flex;
     flex-direction: column;
     margin-left: 20vw;
@@ -21,10 +21,10 @@ const OrdersPage = () => {
     return (
         <Container>
             <Sidebar />
-            <OrderContainer>
+            <OrdersContainer>
                 <Filters />
                 <OrderList />
-            </OrderContainer>
+            </OrdersContainer>
         </Container>
     )
 }

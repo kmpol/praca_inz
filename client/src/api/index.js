@@ -29,4 +29,5 @@ export const checkout = async (body) => await API.post(`${url}/create-checkout-s
 
 //Admin
 export const getOrders = async () => await API.get(`${url}/orders`)
+export const getOrder = async (id) => await API.get(`${url}/orders/${id}`)
 export const updateOrderStatus = async (status, id) => await API.put(`${url}/orders/${id}`, status)
