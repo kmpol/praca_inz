@@ -21,7 +21,8 @@ const UserDetail = styled.p`
     justify-content: center;
 `
 
-const User = ({ user }) => {
+const User = ({ user, moneySpent }) => {
+    console.log(moneySpent)
     return (
         <Container>
             <UserDetails>
@@ -29,7 +30,7 @@ const User = ({ user }) => {
                 <UserDetail>{user.name}</UserDetail>
                 <UserDetail>{user.email}</UserDetail>
                 <UserDetail>{(user.isAdmin).toString()}</UserDetail>
-                <UserDetail>0</UserDetail>
+                <UserDetail>{(moneySpent?.total) / 100} USD</UserDetail>
             </UserDetails>
         </Container>
     )

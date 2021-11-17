@@ -7,6 +7,7 @@ import cart from './cart'
 import adminOrders from './admin/orders'
 import filterOrders from "./admin/fitlers";
 import adminUsers from './admin/users'
+import stats from "./admin/stats";
 
 export default combineReducers({
     auth,
@@ -15,5 +16,6 @@ export default combineReducers({
     cart,
     adminOrders,
     filterOrders,
-    adminUsers
+    adminUsers,
+    stats
 })

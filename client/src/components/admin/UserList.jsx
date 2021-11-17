@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { getUsers } from '../../actions/admin/users'
+import { getClientsTotal } from '../../actions/admin/orders'
 import User from './User'
 
 const Container = styled.div`
@@ -21,14 +22,16 @@ const UserColumn = styled.h3`
 
 const UserList = () => {
     const dispatch = useDispatch()
-
     useEffect(() => {
         dispatch(getUsers())
+        dispatch(getClientsTotal())
         console.log("User list render")
     }, [])
 
     const adminUsers = useSelector(state => state.adminUsers)
+    const stats = useSelector(state => state.stats)
     console.log(adminUsers)
+    console.log('state', stats)
     return (
         <Container>
             <UserBar>
@@ -41,7 +44,7 @@ const UserList = () => {
             {
                 adminUsers.length > 0 ? (
                     adminUsers.map((user) => {
-                        return <User key={user._id} user={user} />
+                        return <User key={user._id} user={user} moneySpent={stats.clientsTotal.find((item) => item._id === user._id)} />
                     })
                 ) : (
                     "No users :("

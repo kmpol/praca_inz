@@ -31,3 +31,13 @@ export const updateOrderStatus = (status, id) => async (dispatch) => {
         console.log(e.message)
     }
 }
+
+export const getClientsTotal = () => async (dispatch) => {
+    try {
+        const { data } = await api.getClientsTotal()
+
+        dispatch({ type: 'CLIENTS_TOTAL', payload: data })
+    } catch (e) {
+        console.log(e.message)
+    }
+}

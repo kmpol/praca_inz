@@ -32,3 +32,5 @@ export const getOrders = async () => await API.get(`${url}/orders`)
 export const getUsers = async () => await API.get(`${url}/users`)
 export const getOrder = async (id) => await API.get(`${url}/orders/${id}`)
 export const updateOrderStatus = async (status, id) => await API.put(`${url}/orders/${id}`, status)
+
+export const getClientsTotal = async () => await API.get(`${url}/orders/clientstotal`)
