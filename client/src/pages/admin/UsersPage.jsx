@@ -2,18 +2,27 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Sidebar from '../../components/admin/Sidebar'
+import UserList from '../../components/admin/UserList'
 
 const Container = styled.div`
     display: flex;
     width: 100%;
-    height: 100vh;
+`
+
+const UsersContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-left: 20vw;
+    width: 100%;
 `
 
 const UsersPage = () => {
     return (
         <Container>
             <Sidebar />
-            <p>Users</p>
+            <UsersContainer>
+                <UserList />
+            </UsersContainer>
         </Container>
     )
 }
