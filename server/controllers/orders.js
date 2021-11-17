@@ -116,3 +116,16 @@ export const updateOrderStatus = async (req, res) => {
         res.status(500).send(e.message)
     }
 }
+
+export const getClientsTotal = async (req, res) => {
+    try {
+        const agregationResponse = await Order.aggregate([
+            { $match: {} },
+            { $group: { _id: "$owner", total: { $sum: "$payment.amount" } } }
+        ])
+
+        res.status(200).send(agregationResponse)
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
+}
