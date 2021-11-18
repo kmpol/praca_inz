@@ -136,3 +136,14 @@ export const getUsers = async (req, res) => {
         res.status(500).send(e.message)
     }
 }
+
+export const getUserAdmin = async (req, res) => {
+    const id = req.params.id
+    try {
+        const user = await User.findById(id)
+        if (!user) return res.status(404).send({ "error": "User not found" })
+        res.status(200).send(user)
+    } catch (e) {
+
+    }
+}

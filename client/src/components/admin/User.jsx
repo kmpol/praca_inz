@@ -30,7 +30,7 @@ const User = ({ user, moneySpent }) => {
                 <UserDetail>{user.name}</UserDetail>
                 <UserDetail>{user.email}</UserDetail>
                 <UserDetail>{(user.isAdmin).toString()}</UserDetail>
-                <UserDetail>{(moneySpent?.total) / 100} USD</UserDetail>
+                <UserDetail>{((moneySpent?.total) / 100) || "No orders"} {moneySpent && "USD"}</UserDetail>
             </UserDetails>
         </Container>
     )

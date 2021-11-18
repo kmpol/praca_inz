@@ -6,7 +6,8 @@ import {
     logoutUser,
     forgotPassword,
     resetPassword,
-    getUsers
+    getUsers,
+    getUserAdmin
 } from '../controllers/users.js'
 import { auth } from '../middleware/auth.js'
 import { authAdmin } from '../middleware/authAdmin.js'
@@ -19,5 +20,6 @@ router.post('/logout', auth, logoutUser)
 router.post('/forgotpassword', forgotPassword)
 router.put('/resetpassword/:resetToken', resetPassword)
 router.get('/', authAdmin, getUsers)
+router.get('/:id', authAdmin, getUserAdmin)
 
 export default router
