@@ -22,6 +22,7 @@ import UsersPage from './pages/admin/UsersPage'
 import UserPage from './pages/admin/UserPage'
 import OrdersPage from './pages/admin/OrdersPage'
 import OrderPage from './pages/admin/OrderPage'
+import ProductsPageAdmin from './pages/admin/ProductsPageAdmin'
 
 
 //Styles
@@ -53,6 +54,7 @@ const App = () => {
                     <Route path="/admin/dashboard/users/:id" component={UserPage} />
                     <Route exact path="/admin/dashboard/orders" component={OrdersPage} />
                     <Route path="/admin/dashboard/orders/:id" component={OrderPage} />
+                    <Route exact path="/admin/dashboard/products" component={ProductsPageAdmin} />
 
                     <Route path="*" component={NotFoundPage} />
 

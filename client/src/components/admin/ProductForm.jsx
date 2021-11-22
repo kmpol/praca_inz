@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import FileBase from 'react-file-base64'
-import { createProduct } from '../actions/products'
+import { createProduct } from '../../actions/products'
 
 const Container = styled.div`
     background-color: #dbdbdb;

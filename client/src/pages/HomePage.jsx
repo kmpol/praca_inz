@@ -4,7 +4,6 @@ import { getProducts } from '../actions/products'
 import Footer from '../components/Footer'
 import MainCategories from '../components/MainCategories'
 import Navbar from '../components/Navbar'
-import ProductForm from '../components/ProductForm'
 import Products from '../components/Products'
 import Slider from '../components/Slider'
 
@@ -22,7 +21,6 @@ const HomePage = () => {
             <Slider />
             {/* Products -> HotProducts. ADMIN -> Set hot products */}
             <Products />
-            <ProductForm />
             <MainCategories />
             <Footer />
         </div>
