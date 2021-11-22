@@ -20,7 +20,6 @@ const OrderList = () => {
     }, [])
 
     const adminOrders = useSelector(state => state.adminOrders)
-
     return (
         <Container>
             {

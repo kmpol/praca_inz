@@ -31,6 +31,8 @@ export const checkout = async (body) => await API.post(`${url}/create-checkout-s
 export const getOrders = async () => await API.get(`${url}/orders`)
 export const getUsers = async () => await API.get(`${url}/users`)
 export const getOrder = async (id) => await API.get(`${url}/orders/${id}`)
+export const getUser = async (id) => await API.get(`${url}/users/${id}`)
 export const updateOrderStatus = async (status, id) => await API.put(`${url}/orders/${id}`, status)
 
 export const getClientsTotal = async () => await API.get(`${url}/orders/clientstotal`)
+export const getClientOrders = async (id) => await API.get(`${url}/orders/client/61976b6f84c1f475ddf322c8/orderstotal`)

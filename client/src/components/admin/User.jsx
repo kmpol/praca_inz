@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
     width: 100%;
@@ -10,9 +11,15 @@ const Container = styled.div`
     width: 100%;
 `
 
-const UserDetails = styled.div`
+const UserDetails = styled(Link)`
     display: flex;
     width: 100%;
+    text-decoration: none;
+    color: black;
+
+    &:hover{
+        font-weight: 600;
+    }
 `
 
 const UserDetail = styled.p`
@@ -25,7 +32,7 @@ const User = ({ user, moneySpent }) => {
     console.log(moneySpent)
     return (
         <Container>
-            <UserDetails>
+            <UserDetails to={`/admin/dashboard/users/${user._id}`}>
                 <UserDetail>{user._id}</UserDetail>
                 <UserDetail>{user.name}</UserDetail>
                 <UserDetail>{user.email}</UserDetail>

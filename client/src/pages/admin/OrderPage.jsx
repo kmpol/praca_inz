@@ -151,6 +151,11 @@ const OrderPage = () => {
     useEffect(() => {
         dispatch(getOrder(id))
     }, [])
+
+    useEffect(() => {
+        dispatch({ type: "CLEAR_ORDER" })
+    }, [location])
+
     const order = useSelector(state => state.adminOrders)
     console.log(order)
 

@@ -1,6 +1,7 @@
 import User from '../models/User.js'
 import sendEmail from '../utils/email.js'
 import crypto from 'crypto'
+import Order from '../models/Order.js'
 
 export const createUser = async (req, res) => {
     const { name, email, password, repeatPassword } = req.body
@@ -141,9 +142,17 @@ export const getUserAdmin = async (req, res) => {
     const id = req.params.id
     try {
         const user = await User.findById(id)
+        const ordersFromUser = await Order.find({ owner: user._id }).populate('products.product').exec()
         if (!user) return res.status(404).send({ "error": "User not found" })
-        res.status(200).send(user)
+        res.status(200).send({ user, ordersFromUser })
     } catch (e) {
 
     }
 }
+
+/*
+db.getCollection('orders').aggregate([
+    {$match:{} },
+    {$group: {_id: "$owner", total: {$sum: "$payment.amount"}}}
+])
+*/

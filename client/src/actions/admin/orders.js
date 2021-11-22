@@ -41,3 +41,13 @@ export const getClientsTotal = () => async (dispatch) => {
         console.log(e.message)
     }
 }
+
+// ????????????
+export const getClientOrdersxD = (id) => async (dispatch) => {
+    try {
+        const { data } = await api.getClientOrders(id)
+        dispatch({ type: 'CLIENT_ORDERS', payload: data })
+    } catch (e) {
+        console.log(e.message)
+    }
+}

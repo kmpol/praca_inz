@@ -1,6 +1,6 @@
 const statusDefaultState = {
     clientsTotal: [],
-    test: "test"
+    clientOrders: []
 }
 
 export default (state = statusDefaultState, action) => {
@@ -9,6 +9,11 @@ export default (state = statusDefaultState, action) => {
             return {
                 ...state,
                 clientsTotal: action.payload
+            }
+        case 'CLIENT_ORDERS':
+            return {
+                ...state,
+                clientOrders: action.payload
             }
         default:
             return state

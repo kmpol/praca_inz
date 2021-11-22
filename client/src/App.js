@@ -19,6 +19,7 @@ import CheckoutCancel from './checkout/CheckoutCancel'
 
 import DashboardPage from './pages/admin/DashboardPage'
 import UsersPage from './pages/admin/UsersPage'
+import UserPage from './pages/admin/UserPage'
 import OrdersPage from './pages/admin/OrdersPage'
 import OrderPage from './pages/admin/OrderPage'
 
@@ -48,7 +49,8 @@ const App = () => {
                     <Route path="/resetpassword/:resetToken" component={ResetPasswordPage} />
 
                     <Route exact path="/admin/dashboard" component={DashboardPage} />
-                    <Route path="/admin/dashboard/users" component={UsersPage} />
+                    <Route exact path="/admin/dashboard/users" component={UsersPage} />
+                    <Route path="/admin/dashboard/users/:id" component={UserPage} />
                     <Route exact path="/admin/dashboard/orders" component={OrdersPage} />
                     <Route path="/admin/dashboard/orders/:id" component={OrderPage} />
 

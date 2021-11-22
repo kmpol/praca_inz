@@ -1,6 +1,7 @@
 import Order from '../models/Order.js';
 import sendEmail from '../utils/email.js';
 import dotenv from 'dotenv'
+import mongoose from 'mongoose';
 dotenv.config()
 
 export const createOrder = async (req, res) => {
@@ -127,5 +128,25 @@ export const getClientsTotal = async (req, res) => {
         res.status(200).send(agregationResponse)
     } catch (e) {
         res.status(500).send(e.message)
+    }
+}
+
+// -> Find orders by user (owner) 
+// -> group orders by days 
+// -> sum orders amounts each day user placed an order 
+// -> sort by date asc
+export const getSingleClientOrdersTotal = async (req, res) => {
+    const ownerId = req.params.id
+    try {
+        const agregationResponse = await Order.aggregate([
+            { $match: { owner: mongoose.Types.ObjectId(`${ownerId}`) } },
+            { $group: { _id: { $dateToString: { format: "%Y-%m", date: "$createdAt" } }, total: { $sum: "$payment.amount" } } },
+            { $sort: { _id: 1 } }
+        ])
+
+        res.status(200).send(agregationResponse)
+    } catch (e) {
+        res.status(500).send(e.message)
+
     }
 }

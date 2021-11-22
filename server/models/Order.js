@@ -9,7 +9,7 @@ const orderSchema = new mongoose.Schema({
     },
     status: String,
     owner: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
     products: [{
