@@ -73,8 +73,8 @@ const UserPage = () => {
     useEffect(() => {
         dispatch(getUser(id))
         dispatch(getClientOrdersxD(id))
-    }, [])
-
+    }, [id])
+    console.log(id)
 
     useEffect(() => {
         dispatch({ type: "CLEAR_ORDER" })

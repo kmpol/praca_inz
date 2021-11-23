@@ -4,7 +4,8 @@ import moment from 'moment';
 const filtersReducerDefaultState = {
     gender: '',
     size: '',
-    color: ''
+    color: '',
+    mainCategory: ''
 };
 
 const filtersReducer = (state = filtersReducerDefaultState, action) => {
@@ -18,6 +19,11 @@ const filtersReducer = (state = filtersReducerDefaultState, action) => {
             return {
                 ...state,
                 size: action.size
+            }
+        case 'SET_MAIN_CATEGORY':
+            return {
+                ...state,
+                mainCategory: action.mainCategory
             }
         case 'SET_COLOR_FILTER':
             return {

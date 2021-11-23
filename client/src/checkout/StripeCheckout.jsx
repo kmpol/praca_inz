@@ -37,7 +37,7 @@ const StripeCheckout = () => {
                 quantity: item.quantityOfItem,
                 price_data: {
                     currency: 'usd',
-                    unit_amount: item.price * 100, //Amount must be in cents
+                    unit_amount: Math.round(item.price * 100), //Amount must be in cents
                     product_data: {
                         name: item.name,
                         metadata: {

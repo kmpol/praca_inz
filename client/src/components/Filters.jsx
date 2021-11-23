@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { setGender, setSize, setColor } from '../actions/filters'
+import { setGender, setSize, setColor, setMainCategory } from '../actions/filters'
 
 const Container = styled.div`
     display: flex;
@@ -27,7 +27,13 @@ const GenderFilter = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+`
 
+const MainCategoryFilter = styled.div`
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
 const SizeFilter = styled.div`
@@ -52,6 +58,8 @@ const Option = styled.option``
 const Filters = () => {
     const dispatch = useDispatch()
     const filters = useSelector(state => state.filters)
+    const categoriesArray = useSelector(state => state.products).map((item) => item.mainCategory)
+    const categories = [...new Set(categoriesArray)]
 
     useEffect(() => {
         filters.gender && selectElement("gender", filters.gender)
@@ -62,6 +70,12 @@ const Filters = () => {
     const onGenderSelect = (e) => {
         const gender = e.target.value
         dispatch(setGender(gender))
+    }
+
+    const onCategoryChange = (e) => {
+        const mainCategory = e.target.value
+        console.log(mainCategory)
+        dispatch(setMainCategory(mainCategory))
     }
 
     const onSizeSelect = (e) => {
@@ -91,6 +105,13 @@ const Filters = () => {
                         <Option value="women">Women</Option>
                     </Select>
                 </GenderFilter>
+                <MainCategoryFilter>
+                    <FilterName>Main Category:</FilterName>
+                    <Select id="mainCategory" onChange={onCategoryChange}>
+                        <Option value="">All</Option>
+                        {categories.map((category) => <Option key={category} value={category}>{category}</Option>)}
+                    </Select>
+                </MainCategoryFilter>
                 <SizeFilter>
                     <FilterName>Size:</FilterName>
                     <Select id="size" onChange={onSizeSelect}>

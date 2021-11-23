@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { getProducts } from '../actions/products'
 import Product from './Product'
 import selectProducts from '../selectors/products'
-import { setColor, setGender, setSize } from '../actions/filters'
+import { setColor, setGender, setMainCategory, setSize } from '../actions/filters'
 
 const Container = styled.div`
     display: flex;
@@ -26,6 +26,7 @@ const Products = () => {
             dispatch(setGender(""))
             dispatch(setSize(""))
             dispatch(setColor(""))
+            dispatch(setMainCategory(""))
         }
 
     }, [])

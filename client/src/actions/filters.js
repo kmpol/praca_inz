@@ -13,6 +13,11 @@ export const setColor = (color) => ({
     color
 })
 
+export const setMainCategory = (mainCategory) => ({
+    type: "SET_MAIN_CATEGORY",
+    mainCategory
+})
+
 export const sortByAmount = () => ({
     type: "SORT_BY_AMOUNT"
 })

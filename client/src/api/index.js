@@ -35,4 +35,4 @@ export const getUser = async (id) => await API.get(`${url}/users/${id}`)
 export const updateOrderStatus = async (status, id) => await API.put(`${url}/orders/${id}`, status)
 
 export const getClientsTotal = async () => await API.get(`${url}/orders/clientstotal`)
-export const getClientOrders = async (id) => await API.get(`${url}/orders/client/61976b6f84c1f475ddf322c8/orderstotal`)
+export const getClientOrders = async (id) => await API.get(`${url}/orders/client/${id}/orderstotal`)

@@ -113,7 +113,7 @@ const ProductForm = () => {
     }
 
     const onPriceChange = (e) => {
-        const price = e.target.value
+        const price = parseFloat(e.target.value)
 
         setProduct({
             ...product,
