@@ -4,6 +4,10 @@ export default (products = [], action) => {
             return action.payload
         case 'CREATE_PRODUCT':
             return [...products, action.payload]
+        case 'UPDATE_SALES_STATUS':
+            const filterProducts = products.filter((item) => item._id !== action.payload._id)
+            const newProduct = action.payload
+            return [...filterProducts, newProduct]
         default:
             return products
     }

@@ -30,7 +30,7 @@ export const getProduct = async (req, res) => {
     try {
         const product = await Product.findById(_id)
         if (!product) {
-            return res.status(404).send({ message: 'Product has been not found!' })
+            return res.status(404).send()
         }
         res.status(200).send(product)
 
@@ -49,6 +49,18 @@ export const getProducts = async (req, res) => {
         console.log(filters)
         res.status(200).send(products)
     } catch (e) {
-        res.status(500).send(e)
+        res.status(500).send(e.message)
+    }
+}
+
+export const disableOrEnableProductSale = async (req, res) => {
+    const id = req.params.id
+    try {
+        const updatedProduct = await Product.findByIdAndUpdate(id, req.body, {
+            new: true
+        })
+        res.status(200).send(updatedProduct)
+    } catch (e) {
+        res.status(500).send(e.message)
     }
 }

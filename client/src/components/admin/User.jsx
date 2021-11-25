@@ -29,7 +29,6 @@ const UserDetail = styled.p`
 `
 
 const User = ({ user, moneySpent }) => {
-    console.log(moneySpent)
     return (
         <Container>
             <UserDetails to={`/admin/dashboard/users/${user._id}`}>

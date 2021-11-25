@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import { CheckBoxOutlined, IndeterminateCheckBoxSharp } from '@material-ui/icons'
+import { disableOrEnableProductSale, getProduct } from '../../actions/products'
 
 const Container = styled.div`
     width: 100%;
@@ -70,11 +73,61 @@ const SalesDetail = styled.p`
 
 const ActionContainer = styled.div`
     flex:1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+const ConfirmationContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`
+
+const ConfirmationModal = styled.p`
+
+`
+
+const StyledCheckBoxOutlined = styled(CheckBoxOutlined)`
+    color: green;
+    cursor: pointer;
+    margin: 6px 12px;
+`
+
+const StyledIndeterminateCheckBoxSharp = styled(IndeterminateCheckBoxSharp)`
+    color: red;
+    cursor: pointer;
+    margin: 6px 12px;
+`
+
+const EnableDisableSales = styled.p`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: ${props => props.isActiveSale ? "red" : "green"};
 `
 
 const Product = ({ product, sales }) => {
+
+    const dispatch = useDispatch()
+    const [showModal, setShowModal] = useState(false)
+
     const quantitySales = sales.map((sale) => sale.quantity).reduce((a, b) => a + b, 0)
     const priceSales = sales.map((sale) => sale.price).reduce((a, b) => a + b, 0)
+
+    const onEnableDisableClick = () => {
+        setShowModal(!showModal)
+    }
+
+    const onConfirmationSalesClick = async () => {
+        dispatch(disableOrEnableProductSale(product._id, !product.isActiveSale))
+        const p = await getProduct(product._id)
+        console.log('p', p)
+        setShowModal(!showModal)
+    }
+
     return (
         <Container>
             <OfferContainer>
@@ -97,7 +150,23 @@ const Product = ({ product, sales }) => {
                 <SalesDetail>{priceSales.toFixed(2)} USD</SalesDetail>
                 <SalesDetail>{quantitySales.toFixed(0)} pc(s)</SalesDetail>
             </SalesContainer>
-            <ActionContainer>test</ActionContainer>
+            <ActionContainer>
+                {
+                    showModal ? (
+                        <ConfirmationContainer>
+                            <ConfirmationModal>Are you sure?</ConfirmationModal>
+                            <div>
+                                <StyledCheckBoxOutlined fontSize={"large"} onClick={onConfirmationSalesClick} />
+                                <StyledIndeterminateCheckBoxSharp fontSize={"large"} onClick={() => { setShowModal(!showModal) }} />
+                            </div>
+                        </ConfirmationContainer>
+
+                    ) : (
+                        <EnableDisableSales onClick={() => onEnableDisableClick(product._id)} isActiveSale={product.isActiveSale}>{product.isActiveSale ? "Disable sales" : "Enable sales"}</EnableDisableSales>
+                    )
+                }
+
+            </ActionContainer>
         </Container>
     )
 }

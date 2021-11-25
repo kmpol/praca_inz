@@ -31,3 +31,14 @@ export const createProduct = (product) => async (dispatch) => {
         console.log(e.message)
     }
 }
+
+export const disableOrEnableProductSale = (id, isActiveSale) => async (dispatch) => {
+    try {
+        const { data } = await api.disableOrEnableProductSale(id, isActiveSale)
+
+        dispatch({ type: 'UPDATE_SALES_STATUS', payload: data })
+
+    } catch (e) {
+        console.log(e.message)
+    }
+}

@@ -32,6 +32,10 @@ const productSchema = new mongoose.Schema({
     itemsInStock: {
         type: Number,
         default: 1
+    },
+    isActiveSale: {
+        type: Boolean,
+        default: true
     }
 }, {
     timestamps: true

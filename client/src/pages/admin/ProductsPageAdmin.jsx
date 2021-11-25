@@ -113,7 +113,7 @@ const ProductsPageAdmin = () => {
                         </ProductBar>
                         {
                             products.length > 0 ? (
-                                products.map((product) => {
+                                products.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1).map((product) => {
                                     return <Product key={product._id} product={product} sales={sales.filter((sale) => sale.product_id === product._id)} />
                                 })
                             ) : (

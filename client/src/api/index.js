@@ -16,6 +16,7 @@ API.interceptors.request.use((req) => {
 export const getProducts = () => API.get(`${url}/products`)
 export const getProduct = (id) => API.get(`${url}/products/${id}`)
 export const createProduct = (product) => API.post(`${url}/products`, product)
+export const disableOrEnableProductSale = (id, boolean) => API.patch(`${url}/products/${id}`, { "isActiveSale": boolean })
 
 //Users and auth
 export const createUser = (userInfo) => API.post(`${url}/users/register`, userInfo)
