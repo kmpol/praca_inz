@@ -40,7 +40,7 @@ const productSchema = new mongoose.Schema({
 productSchema.virtual('order', {
     ref: 'Order',
     localField: '_id',
-    foreignField: 'products'
+    foreignField: 'products.product'
 })
 
 const Product = mongoose.model('Product', productSchema)

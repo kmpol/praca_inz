@@ -3,10 +3,11 @@ import styled from 'styled-components'
 
 const Container = styled.div`
     width: 100%;
-    height: 20vh;
+    height: 15vh;
     display: flex;
     padding: 12px;
     border-bottom: 1px solid black;
+    border-top: 1px solid black;
 `
 
 const OfferContainer = styled.div`
@@ -52,15 +53,28 @@ const DetailsContainer = styled.div`
 
 `
 
+const ProductDetails = styled.p``
+
 const SalesContainer = styled.div`
     flex:1;
+    display: flex;
+    flex-direction: column;
+`
+
+const SalesDetail = styled.p`
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 const ActionContainer = styled.div`
     flex:1;
 `
 
-const Product = ({ product }) => {
+const Product = ({ product, sales }) => {
+    const quantitySales = sales.map((sale) => sale.quantity).reduce((a, b) => a + b, 0)
+    const priceSales = sales.map((sale) => sale.price).reduce((a, b) => a + b, 0)
     return (
         <Container>
             <OfferContainer>
@@ -72,9 +86,17 @@ const Product = ({ product }) => {
                 </TitleContainer>
             </OfferContainer>
             <AvailabilityContainer>{product.itemsInStock}</AvailabilityContainer>
-            <PriceContainer>{(product.price).toFixed(2)}</PriceContainer>
-            <DetailsContainer>test</DetailsContainer>
-            <SalesContainer>test</SalesContainer>
+            <PriceContainer>{(product.price).toFixed(2)} USD</PriceContainer>
+            <DetailsContainer>
+                <ProductDetails><strong>gender:</strong> {product.gender}</ProductDetails>
+                <ProductDetails><strong>category:</strong> {product.mainCategory}</ProductDetails>
+                <ProductDetails><strong>size:</strong> {product.size}</ProductDetails>
+                <ProductDetails><strong>color:</strong> {product.color}</ProductDetails>
+            </DetailsContainer>
+            <SalesContainer>
+                <SalesDetail>{priceSales.toFixed(2)} USD</SalesDetail>
+                <SalesDetail>{quantitySales.toFixed(0)} pc(s)</SalesDetail>
+            </SalesContainer>
             <ActionContainer>test</ActionContainer>
         </Container>
     )

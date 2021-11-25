@@ -7,7 +7,6 @@ import { setGender, setSize, setColor, setMainCategory } from '../actions/filter
 const Container = styled.div`
     display: flex;
     width: 100%;
-    margin: 16px;
 `
 
 const FilterName = styled.h3`

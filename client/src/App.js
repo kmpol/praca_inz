@@ -27,6 +27,7 @@ import ProductsPageAdmin from './pages/admin/ProductsPageAdmin'
 
 //Styles
 import './styles.css'
+import AddProductPage from './pages/admin/AddProductPage'
 
 
 
@@ -35,26 +36,32 @@ const App = () => {
         <>
             <Router>
                 <Switch>
+                    {/* Shop realted routes */}
                     <Route exact path="/" component={HomePage} />
                     <Route exact path="/products" component={ProductsPage} />
                     <Route path="/product/:id" component={ProductPage} />
                     <Route exact path="/cart" component={CartPage} />
+
+                    {/* Checkout realted routes */}
                     <Route exact path="/checkout" component={Checkout} />
                     <Route exact path="/success" component={CheckoutSuccess} />
                     <Route exact path="/canceled" component={CheckoutCancel} />
 
+                    {/* User authorization realted routes */}
                     <Route exact path="/login" component={LoginPage} />
                     <Route exact path="/register" component={RegisterPage} />
                     <Route exact path="/forgotpassword" component={ForgotPasswordPage} />
                     <Route path="/forgotpassword/success" component={ForgotPasswordPageSuccess} />
                     <Route path="/resetpassword/:resetToken" component={ResetPasswordPage} />
 
+                    {/* Admin dashboard realted routes */}
                     <Route exact path="/admin/dashboard" component={DashboardPage} />
                     <Route exact path="/admin/dashboard/users" component={UsersPage} />
                     <Route path="/admin/dashboard/users/:id" component={UserPage} />
                     <Route exact path="/admin/dashboard/orders" component={OrdersPage} />
                     <Route path="/admin/dashboard/orders/:id" component={OrderPage} />
                     <Route exact path="/admin/dashboard/products" component={ProductsPageAdmin} />
+                    <Route exact path="/admin/dashboard/products/addProduct" component={AddProductPage} />
 
                     <Route path="*" component={NotFoundPage} />
 

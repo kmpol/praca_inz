@@ -5,6 +5,7 @@ import Sidebar from '../../components/admin/Sidebar'
 
 import { getProducts } from '../../actions/products'
 import Product from '../../components/admin/Product'
+import { getOrders } from '../../actions/admin/orders'
 
 const Container = styled.div`
     display: flex;
@@ -39,7 +40,7 @@ const ProductList = styled.div`
 `
 const ProductBar = styled.div`
     display: flex;
-    margin-bottom: 12px;
+    margin: 12px 0;
 `
 
 const UserColumnOffer = styled.h3`
@@ -59,11 +60,38 @@ const ProductsPageAdmin = () => {
 
     useEffect(() => {
         dispatch(getProducts())
+        dispatch(getOrders())
     }, [])
 
     const products = useSelector(state => state.products)
+    const orders = useSelector(state => state.adminOrders)
+    const productsIds = [...new Set(orders?.map((order) => order?.products.map((product) => product.product._id)).flat())]
+    let sales = []
 
-    console.log(products)
+
+    //Just don't look at this
+    for (let i = 0; i < productsIds.length; i++) {
+        let product_id = productsIds[i];
+        for (let j = 0; j < orders.length; j++) {
+
+            for (let k = 0; k < orders[j].products.length; k++) {
+                let order_product_id = orders[j].products[k].product._id
+                let order_product_price = orders[j].products[k].product.price
+                let order_product_quantity = orders[j].products[k].quantity
+
+                if (product_id === order_product_id) {
+                    sales.push({
+                        product_id: order_product_id,
+                        price: order_product_price,
+                        quantity: order_product_quantity
+                    })
+
+                }
+            }
+
+        }
+    }
+
     return (
         <Container>
             <Sidebar />
@@ -86,7 +114,7 @@ const ProductsPageAdmin = () => {
                         {
                             products.length > 0 ? (
                                 products.map((product) => {
-                                    return <Product key={product._id} product={product} />
+                                    return <Product key={product._id} product={product} sales={sales.filter((sale) => sale.product_id === product._id)} />
                                 })
                             ) : (
                                 "No products :("
