@@ -8,6 +8,7 @@ import adminOrders from './admin/orders'
 import filterOrders from "./admin/fitlers";
 import adminUsers from './admin/users'
 import stats from "./admin/stats";
+import adminProducts from './admin/products'
 
 export default combineReducers({
     auth,
@@ -17,5 +18,6 @@ export default combineReducers({
     adminOrders,
     filterOrders,
     adminUsers,
-    stats
+    stats,
+    adminProducts
 })

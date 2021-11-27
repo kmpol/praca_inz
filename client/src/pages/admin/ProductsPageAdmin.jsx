@@ -91,7 +91,6 @@ const ProductsPageAdmin = () => {
 
         }
     }
-
     return (
         <Container>
             <Sidebar />

@@ -64,3 +64,26 @@ export const disableOrEnableProductSale = async (req, res) => {
         res.status(500).send(e.message)
     }
 }
+
+export const updateProduct = async (req, res) => {
+    const id = req.params.id
+
+    const incomingUpdates = Object.keys(req.body)
+    const allowedUpdates = ['name', 'description', 'mainCategory', 'gender', 'size', 'color', 'price', 'img', 'itemsInStock']
+    const isValidUpdate = incomingUpdates.every((update) => allowedUpdates.includes(update))
+
+    if (!isValidUpdate) return res.status(400).send({ error: "Invalid updates!" })
+
+    try {
+        const product = await Product.findById(id)
+
+        if (!product) return res.status(404).send({ error: "Product not found!" })
+
+        incomingUpdates.forEach((update) => product[update] = req.body[update])
+        await product.save()
+
+        res.status(200).send(product)
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
+}

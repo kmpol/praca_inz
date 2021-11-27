@@ -23,11 +23,12 @@ import UserPage from './pages/admin/UserPage'
 import OrdersPage from './pages/admin/OrdersPage'
 import OrderPage from './pages/admin/OrderPage'
 import ProductsPageAdmin from './pages/admin/ProductsPageAdmin'
-
+import AddProductPage from './pages/admin/AddProductPage'
+import EditProductPage from './pages/admin/EditProductPage'
 
 //Styles
 import './styles.css'
-import AddProductPage from './pages/admin/AddProductPage'
+
 
 
 
@@ -62,6 +63,7 @@ const App = () => {
                     <Route path="/admin/dashboard/orders/:id" component={OrderPage} />
                     <Route exact path="/admin/dashboard/products" component={ProductsPageAdmin} />
                     <Route exact path="/admin/dashboard/products/addProduct" component={AddProductPage} />
+                    <Route exact path="/admin/dashboard/products/editProduct/:id" component={EditProductPage} />
 
                     <Route path="*" component={NotFoundPage} />
 

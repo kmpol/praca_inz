@@ -45,17 +45,17 @@ const ProductSelect = styled.select`
 const ProductOption = styled.option`
 `
 
-const ProductForm = () => {
+const ProductForm = ({ productProp, onSaveClick }) => {
     const [product, setProduct] = useState({
-        name: '',
-        description: '',
-        mainCategory: '',
-        gender: 'men',
-        size: '',
-        color: '',
-        price: 0,
+        name: productProp?.name ? productProp.name : '',
+        description: productProp?.description ? productProp.description : '',
+        mainCategory: productProp?.mainCategory ? productProp.mainCategory : '',
+        gender: productProp?.gender ? productProp.gender : 'men',
+        size: productProp?.size ? productProp.size : '',
+        color: productProp?.color ? productProp.color : '',
+        price: productProp?.price ? productProp.price : 0,
         img: '',
-        itemsInStock: 0
+        itemsInStock: productProp?.itemsInStock ? productProp.itemsInStock : 0
     })
 
     const dispatch = useDispatch()
@@ -129,11 +129,9 @@ const ProductForm = () => {
         })
     }
 
-    const onSaveClick = (e) => {
+    const onSaveClickButton = (e) => {
         e.preventDefault()
-
-        dispatch(createProduct(product))
-
+        onSaveClick(product)
         setProduct({})
     }
 
@@ -142,26 +140,26 @@ const ProductForm = () => {
         <Container>
             Add product:
             <Form>
-                <ProductsInput type="text" placeholder="Product name.." onChange={onProductNameChange} />
-                <ProductsInput type="text" placeholder="Product description.." onChange={onProductDescriptionChange} />
-                <ProductsInput type="text" placeholder="Main category" onChange={onCategoryChange} />
+                <ProductsInput type="text" placeholder="Product name.." onChange={onProductNameChange} value={product.name} />
+                <ProductsInput type="text" placeholder="Product description.." onChange={onProductDescriptionChange} value={product.description} />
+                <ProductsInput type="text" placeholder="Main category" onChange={onCategoryChange} value={product.mainCategory} />
 
-                <ProductSelect name="gender" onChange={onGenderChange} >
+                <ProductSelect name="gender" onChange={onGenderChange} value={product.gender}>
                     <ProductOption defaultChecked value="men" >Men</ProductOption>
                     <ProductOption value="women" >Women</ProductOption>
                 </ProductSelect>
 
-                <ProductsInput type="text" placeholder="Size" onChange={onSizeChange} />
-                <ProductsInput type="text" placeholder="Color" onChange={onColorChange} />
-                <ProductsInput type="number" placeholder="Price" onChange={onPriceChange} />
+                <ProductsInput type="text" placeholder="Size" onChange={onSizeChange} value={product.size} />
+                <ProductsInput type="text" placeholder="Color" onChange={onColorChange} value={product.color} />
+                <ProductsInput type="number" placeholder="Price" onChange={onPriceChange} value={product.price} />
                 <FileBase
                     type="file"
                     multiple={false}
                     onDone={({ base64 }) => setProduct({ ...product, img: base64 })}
                 />
-                <ProductsInput type="number" placeholder={"Items in stock"} onChange={onItemsInStockChange} />
+                <ProductsInput type="number" placeholder={"Items in stock"} onChange={onItemsInStockChange} value={product.itemsInStock} />
 
-                <Button onClick={onSaveClick}>Save!</Button>
+                <Button onClick={onSaveClickButton}>Save!</Button>
             </Form>
         </Container>
     )

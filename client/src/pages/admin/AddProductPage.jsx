@@ -1,5 +1,7 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import { createProduct } from '../../actions/products'
 import ProductForm from '../../components/admin/ProductForm'
 import Sidebar from '../../components/admin/Sidebar'
 
@@ -16,11 +18,17 @@ const AddProductContainer = styled.div`
 `
 
 const AddProductPage = () => {
+    const dispatch = useDispatch()
+
+    const onSaveClickAdd = (product) => {
+        dispatch(createProduct(product))
+    }
+
     return (
         <Container>
             <Sidebar />
             <AddProductContainer>
-                <ProductForm />
+                <ProductForm productProp={undefined} onSaveClick={onSaveClickAdd} />
             </AddProductContainer>
         </Container>
     )

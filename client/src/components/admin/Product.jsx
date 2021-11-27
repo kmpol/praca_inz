@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { CheckBoxOutlined, IndeterminateCheckBoxSharp } from '@material-ui/icons'
 import { disableOrEnableProductSale, getProduct } from '../../actions/products'
@@ -74,8 +75,9 @@ const SalesDetail = styled.p`
 const ActionContainer = styled.div`
     flex:1;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 `
 
 const ConfirmationContainer = styled.div`
@@ -107,15 +109,24 @@ const EnableDisableSales = styled.p`
     justify-content: center;
     cursor: pointer;
     color: ${props => props.isActiveSale ? "red" : "green"};
+
+    &:hover {
+        font-weight: 600;
+    }
+`
+
+const EditProduct = styled.p`
+    color: #1c1b50;
+    cursor: pointer;
 `
 
 const Product = ({ product, sales }) => {
 
     const dispatch = useDispatch()
+    const history = useHistory()
     const [showModal, setShowModal] = useState(false)
 
     const quantitySales = sales.map((sale) => sale.quantity).reduce((a, b) => a + b, 0)
-    const priceSales = sales.map((sale) => sale.price).reduce((a, b) => a + b, 0)
 
     const onEnableDisableClick = () => {
         setShowModal(!showModal)
@@ -128,6 +139,11 @@ const Product = ({ product, sales }) => {
         setShowModal(!showModal)
     }
 
+    const onEditProductClick = () => {
+        history.push(`/admin/dashboard/products/editProduct/${product._id}`)
+    }
+
+    console.log(sales)
     return (
         <Container>
             <OfferContainer>
@@ -147,7 +163,6 @@ const Product = ({ product, sales }) => {
                 <ProductDetails><strong>color:</strong> {product.color}</ProductDetails>
             </DetailsContainer>
             <SalesContainer>
-                <SalesDetail>{priceSales.toFixed(2)} USD</SalesDetail>
                 <SalesDetail>{quantitySales.toFixed(0)} pc(s)</SalesDetail>
             </SalesContainer>
             <ActionContainer>
@@ -162,7 +177,10 @@ const Product = ({ product, sales }) => {
                         </ConfirmationContainer>
 
                     ) : (
-                        <EnableDisableSales onClick={() => onEnableDisableClick(product._id)} isActiveSale={product.isActiveSale}>{product.isActiveSale ? "Disable sales" : "Enable sales"}</EnableDisableSales>
+                        <>
+                            <EnableDisableSales onClick={() => onEnableDisableClick(product._id)} isActiveSale={product.isActiveSale}>{product.isActiveSale ? "Disable sales" : "Enable sales"}</EnableDisableSales>
+                            <EditProduct onClick={onEditProductClick}>Edit</EditProduct>
+                        </>
                     )
                 }
 

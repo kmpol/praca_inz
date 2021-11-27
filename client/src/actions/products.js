@@ -22,6 +22,17 @@ export const getProduct = (id) => async (dispatch) => {
     }
 }
 
+export const getProductToEdit = (id) => async (dispatch) => {
+    try {
+        const { data } = await api.getProduct(id)
+
+        dispatch({ type: 'GET_PRODUCT_EDIT', payload: data })
+
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+
 export const createProduct = (product) => async (dispatch) => {
     try {
         const { data } = await api.createProduct(product)
@@ -38,6 +49,16 @@ export const disableOrEnableProductSale = (id, isActiveSale) => async (dispatch)
 
         dispatch({ type: 'UPDATE_SALES_STATUS', payload: data })
 
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+
+export const updateProduct = (id, updates) => async (dispatch) => {
+    try {
+        const { data } = await api.updateProduct(id, updates)
+
+        dispatch({ type: 'UPDATE_PRODUCT', payload: data })
     } catch (e) {
         console.log(e.message)
     }

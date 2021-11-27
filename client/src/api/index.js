@@ -17,6 +17,7 @@ export const getProducts = () => API.get(`${url}/products`)
 export const getProduct = (id) => API.get(`${url}/products/${id}`)
 export const createProduct = (product) => API.post(`${url}/products`, product)
 export const disableOrEnableProductSale = (id, boolean) => API.patch(`${url}/products/${id}`, { "isActiveSale": boolean })
+export const updateProduct = (id, updates) => API.put(`${url}/products/${id}`, { ...updates })
 
 //Users and auth
 export const createUser = (userInfo) => API.post(`${url}/users/register`, userInfo)
