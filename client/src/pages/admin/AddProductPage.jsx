@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router'
 import styled from 'styled-components'
 import { createProduct } from '../../actions/products'
 import ProductForm from '../../components/admin/ProductForm'
@@ -18,10 +19,11 @@ const AddProductContainer = styled.div`
 `
 
 const AddProductPage = () => {
+    const history = useHistory()
     const dispatch = useDispatch()
 
     const onSaveClickAdd = (product) => {
-        dispatch(createProduct(product))
+        dispatch(createProduct(product, history))
     }
 
     return (

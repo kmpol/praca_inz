@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
@@ -35,8 +35,7 @@ const EditProductPage = () => {
     console.log(product)
 
     const onSaveClickEdit = (product) => {
-        dispatch(updateProduct(id, product))
-        history.push('/admin/dashboard/products')
+        dispatch(updateProduct(id, product, history))
     }
 
     return (

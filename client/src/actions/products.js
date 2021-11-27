@@ -33,11 +33,13 @@ export const getProductToEdit = (id) => async (dispatch) => {
     }
 }
 
-export const createProduct = (product) => async (dispatch) => {
+export const createProduct = (product, history) => async (dispatch) => {
     try {
         const { data } = await api.createProduct(product)
 
         dispatch({ type: 'CREATE_PRODUCT', payload: data })
+
+        history.push('/admin/dashboard/products')
     } catch (e) {
         console.log(e.message)
     }
@@ -54,11 +56,13 @@ export const disableOrEnableProductSale = (id, isActiveSale) => async (dispatch)
     }
 }
 
-export const updateProduct = (id, updates) => async (dispatch) => {
+export const updateProduct = (id, updates, history) => async (dispatch) => {
     try {
         const { data } = await api.updateProduct(id, updates)
 
         dispatch({ type: 'UPDATE_PRODUCT', payload: data })
+
+        history.push('/admin/dashboard/products')
     } catch (e) {
         console.log(e.message)
     }
