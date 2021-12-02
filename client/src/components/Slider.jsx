@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getSliders } from '../actions/sldier'
 import styled from 'styled-components'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons'
 
@@ -45,13 +47,15 @@ const Slide = styled.div`
 const ImageContainer = styled.div`
     flex: 1;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
 const Image = styled.img`
-    width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
-
+    max-width: 100%;
 `
 
 const InfoContainer = styled.div`
@@ -73,40 +77,42 @@ const Info = styled.p`
 `
 
 const Slider = () => {
+    const dispatch = useDispatch()
     const [sliderIndex, setSliderIndex] = useState(0)
 
     const handleArrowClick = (direction) => {
         if (direction === 'left') {
-            setSliderIndex(sliderIndex - 1)
-        } else if (direction === 'right') {
-            setSliderIndex(sliderIndex + 1)
-
+            setSliderIndex(sliderIndex > 0 ? sliderIndex - 1 : sliders.length - 1)
+        } else {
+            setSliderIndex(sliderIndex === sliders.length - 1 ? 0 : sliderIndex + 1)
         }
     }
+
+    useEffect(() => {
+        dispatch(getSliders())
+    }, [])
+
+    const sliders = useSelector(state => state.slider)
+    console.log('SLIDERS', sliders)
     return (
         <Container>
             <ArrowContainer direction="left" onClick={() => { handleArrowClick("left") }}>
                 <ArrowLeftOutlined />
             </ArrowContainer>
             <SlideContainer index={sliderIndex}>
-                <Slide>
-                    <ImageContainer>
-                        <Image src="https://media.gettyimages.com/photos/closeup-smiling-male-leader-wearing-eyeglasses-picture-id1179627340?s=2048x2048" />
-                    </ImageContainer>
-                    <InfoContainer>
-                        <InfoTitle>Lorem ipsum dolor sit amet.</InfoTitle>
-                        <Info>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat modi ratione explicabo repellendus neque consequuntur.</Info>
-                    </InfoContainer>
-                </Slide>
-                <Slide>
-                    <ImageContainer>
-                        <Image src="https://media.gettyimages.com/photos/closeup-smiling-male-leader-wearing-eyeglasses-picture-id1179627340?s=2048x2048" />
-                    </ImageContainer>
-                    <InfoContainer>
-                        <InfoTitle>Lorem ipsum dolor sit amet.</InfoTitle>
-                        <Info>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat modi ratione explicabo repellendus neque consequuntur.</Info>
-                    </InfoContainer>
-                </Slide>
+                {
+                    sliders.map((item) => (
+                        <Slide key={item._id}>
+                            <ImageContainer>
+                                <Image src={item.img} />
+                            </ImageContainer>
+                            <InfoContainer>
+                                <InfoTitle>{item.title}</InfoTitle>
+                                <Info>{item.description}</Info>
+                            </InfoContainer>
+                        </Slide>
+                    ))
+                }
             </SlideContainer>
             <ArrowContainer direction="right" onClick={() => { handleArrowClick("right") }}>
                 <ArrowRightOutlined />

@@ -4,6 +4,7 @@ import products from './products'
 import auth from "./auth";
 import filters from './filters'
 import cart from './cart'
+import slider from './sldier'
 import adminOrders from './admin/orders'
 import filterOrders from "./admin/fitlers";
 import adminUsers from './admin/users'
@@ -15,9 +16,11 @@ export default combineReducers({
     filters,
     products,
     cart,
+    slider,
     adminOrders,
     filterOrders,
     adminUsers,
     stats,
-    adminProducts
+    adminProducts,
+
 })
