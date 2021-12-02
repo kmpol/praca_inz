@@ -25,6 +25,7 @@ import OrderPage from './pages/admin/OrderPage'
 import ProductsPageAdmin from './pages/admin/ProductsPageAdmin'
 import AddProductPage from './pages/admin/AddProductPage'
 import EditProductPage from './pages/admin/EditProductPage'
+import CreateSliderPage from './pages/admin/CreateSliderPage'
 
 //Styles
 import './styles.css'
@@ -64,6 +65,7 @@ const App = () => {
                     <Route exact path="/admin/dashboard/products" component={ProductsPageAdmin} />
                     <Route exact path="/admin/dashboard/products/addProduct" component={AddProductPage} />
                     <Route exact path="/admin/dashboard/products/editProduct/:id" component={EditProductPage} />
+                    <Route exact path="/admin/dashboard/sliders/createSlider" component={CreateSliderPage} />
 
                     <Route path="*" component={NotFoundPage} />
 
