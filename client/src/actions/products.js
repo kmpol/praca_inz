@@ -48,7 +48,6 @@ export const createProduct = (product, history) => async (dispatch) => {
 export const disableOrEnableProductSale = (id, isActiveSale) => async (dispatch) => {
     try {
         const { data } = await api.disableOrEnableProductSale(id, isActiveSale)
-
         dispatch({ type: 'UPDATE_SALES_STATUS', payload: data })
 
     } catch (e) {

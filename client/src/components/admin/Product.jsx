@@ -134,8 +134,6 @@ const Product = ({ product, sales }) => {
 
     const onConfirmationSalesClick = async () => {
         dispatch(disableOrEnableProductSale(product._id, !product.isActiveSale))
-        const p = await getProduct(product._id)
-        console.log('p', p)
         setShowModal(!showModal)
     }
 
