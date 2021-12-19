@@ -54,7 +54,7 @@ const ProductForm = ({ productProp, onSaveClick }) => {
         size: productProp?.size ? productProp.size : '',
         color: productProp?.color ? productProp.color : '',
         price: productProp?.price ? productProp.price : 0,
-        img: '',
+        img: productProp?.img ? productProp.img : "",
         itemsInStock: productProp?.itemsInStock ? productProp.itemsInStock : 0
     })
 
