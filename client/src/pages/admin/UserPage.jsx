@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router'
+import moment from 'moment'
 
 import Sidebar from '../../components/admin/Sidebar'
 import { getUser } from '../../actions/admin/users'
@@ -63,12 +64,11 @@ const OrderDetail = styled.p`
 
 `
 
-
-
 const UserPage = () => {
     const dispatch = useDispatch()
     const location = useLocation()
     const id = location.pathname.replace('/admin/dashboard/users/', '')
+    const currentYear = moment().get('year')
 
     useEffect(() => {
         dispatch(getUser(id))
@@ -83,18 +83,27 @@ const UserPage = () => {
     const obj = useSelector(state => state.adminUsers)
     const data = useSelector(state => state.stats.clientOrders)
 
-    //TODO: change to dynamic years
     let dataLastYear = data.filter((item) => {
-        return item._id.includes("2020")
-    })
-    let dataCurrentYear = data.filter((item) => {
-        return item._id.includes("2021")
+        return item._id.includes(currentYear - 1)
+    }).map((item) => {
+        return {
+            _id: item._id,
+            total: item.total / 100
+        }
     })
 
-    console.log(dataLastYear)
+    let dataCurrentYear = data.filter((item) => {
+        return item._id.includes(currentYear)
+    }).map((item) => {
+        return {
+            _id: item._id,
+            total: item.total / 100
+        }
+    })
+
     //yes, yes, I know that
     const Chart = ({ data }) => (
-        <ResponsiveContainer width={"100%"} height={400} >
+        <ResponsiveContainer width={`${data.length * 10}%`} height={400} >
             <BarChart data={data}>
                 <Tooltip />
                 <Bar dataKey="total" stroke="#082032" fill="#082032" />
@@ -130,10 +139,10 @@ const UserPage = () => {
                             }
                             {
                                 <>
-                                    <h2>Current year:</h2>
+                                    <h2>{!!dataCurrentYear.length && "Current year:"}</h2>
                                     <Chart data={dataCurrentYear} />
-                                    <h2>Last year:</h2>
-                                    <Chart data={dataLastYear} />
+                                    <h2>{!!dataLastYear.length && "Last year:"}</h2>
+                                    <Chart data={dataLastYear ? dataLastYear : null} />
                                 </>
                             }
                         </Orders>
