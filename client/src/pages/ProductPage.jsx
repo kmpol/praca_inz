@@ -114,12 +114,25 @@ const ProductPage = () => {
                             <Image src={product.img} />
                         </ImageContainer>
                         <InfoContainer>
-                            <ProductName>{product.name}</ProductName>
-                            <ProductDescription>{product.description}</ProductDescription>
-                            <ProductPrice>Price: <strong>${product.price}</strong></ProductPrice>
-                            Quantity:<Quantity onChange={(e) => setquantityOfItem(e.target.value)} value={quantityOfItem} />
-                            <AddToCartButton onClick={onClickButton}>ADD TO CART</AddToCartButton>
-                            {error && "Product already exists in the cart!"}
+                            {
+                                product?.isActiveSale ? (
+                                    <>
+                                        <ProductName>{product.name}</ProductName>
+                                        <ProductDescription>{product.description}</ProductDescription>
+                                        <ProductPrice>Price: <strong>${product.price}</strong></ProductPrice>
+                                        Quantity:<Quantity onChange={(e) => setquantityOfItem(e.target.value)} value={quantityOfItem} />
+                                        <AddToCartButton onClick={onClickButton}>ADD TO CART</AddToCartButton>
+                                        {error && "Product already exists in the cart!"}
+                                    </>
+                                ) : (
+                                    <>
+                                        <ProductName>{product.name}</ProductName>
+                                        <ProductDescription>{product.description}</ProductDescription>
+                                        <ProductDescription>Product is not in sale currently!</ProductDescription>
+                                    </>
+                                )
+                            }
+
                         </InfoContainer>
                     </Container >
                 </>

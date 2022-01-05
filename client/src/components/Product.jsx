@@ -44,7 +44,7 @@ const Product = ({ product }) => {
                 <InformationContainer>
                     <p>{product.name}</p>
                     <p>Price: ${product.price}</p>
-                    {!product.itemsInStock && <p>Not in stock</p>}
+                    {!product.isActiveSale && <p>Currently not in sale</p>}
                 </InformationContainer>
             </Container>
         </>
