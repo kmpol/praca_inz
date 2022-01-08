@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (products, { gender, size, color, mainCategory }) => {
     return products.filter((product) => {
         const genderMatch = gender ? product.gender.toLowerCase() === gender.toLowerCase() : true
