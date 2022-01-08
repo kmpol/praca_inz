@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
@@ -32,21 +32,11 @@ const Products = () => {
     }, [])
 
     const products = useSelector(state => state.products)
-
-    // useEffect(() => {
-    //     dispatch(getProducts())
-    //     if (location.pathname === '/') {
-    //         dispatch(setGender(""))
-    //         dispatch(setSize(""))
-    //     }
-    // }, [dispatch, location])
-
     const filters = useSelector(state => state.filters)
+
     useEffect(() => {
         selectProducts(products, filters)
     }, [filters])
-
-    console.log("Products", products)
 
     return (
         <>

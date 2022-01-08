@@ -65,7 +65,6 @@ userSchema.methods.generateResetPasswordToken = async function () {
     this.resetPasswordExpire = Date.now() + (10 * 60 * 1000)
 
     await this.save()
-    console.log(resetToken, this.resetPasswordExpire)
     return resetToken
 }
 
@@ -92,10 +91,8 @@ userSchema.statics.findByCredentials = async (email, password) => {
 }
 
 userSchema.pre('save', async function (next) {
-    const user = this
-
-    if (user.isModified('password')) {
-        user.password = await bcrypt.hash(user.password, 8)
+    if (this.isModified('password')) {
+        this.password = await bcrypt.hash(this.password, 8)
     }
 
     next()
