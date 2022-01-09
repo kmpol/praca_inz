@@ -12,6 +12,10 @@ const sldierSchema = new mongoose.Schema({
     img: {
         type: String
     },
+    queue: {
+        type: Number,
+        default: 999
+    }
 }, {
     timestamps: true
 })

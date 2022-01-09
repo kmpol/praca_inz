@@ -22,8 +22,8 @@ const CreateSliderPage = () => {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    const onSaveClickAdd = (product) => {
-        dispatch(createSlider(product, history))
+    const onSaveClickAdd = (slider) => {
+        dispatch(createSlider(slider, history))
     }
 
     return (

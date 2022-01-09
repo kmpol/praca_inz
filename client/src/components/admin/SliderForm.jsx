@@ -39,7 +39,7 @@ const SliderForm = ({ sliderProp, onSaveClick }) => {
     const [slider, setSlider] = useState({
         title: sliderProp?.name ? sliderProp.name : '',
         description: sliderProp?.description ? sliderProp.description : '',
-        img: ''
+        img: sliderProp?.img ? sliderProp.img : ''
     })
 
     const onSaveClickButton = (e) => {

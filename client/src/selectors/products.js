@@ -7,6 +7,6 @@ export default (products, { gender, size, color, mainCategory }) => {
         const isActiveSaleMatch = product.isActiveSale
         const mainCategoryMatch = mainCategory ? product.mainCategory.toLowerCase() === mainCategory.toLowerCase() : true
 
-        return genderMatch && sizeMatch & colorMatch & mainCategoryMatch && isActiveSaleMatch
+        return genderMatch && sizeMatch && colorMatch && mainCategoryMatch && isActiveSaleMatch
     })
 }

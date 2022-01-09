@@ -11,7 +11,11 @@ export const createSlider = async (req, res) => {
 }
 
 export const getSliders = async (req, res) => {
-    const sliders = await Slider.find({})
-    if (!sliders) return req.status(404).send({ error: 'sliders not found / do not exists' })
-    res.status(200).send(sliders)
+    try {
+        const sliders = await Slider.find({})
+        if (!sliders) return req.status(404).send({ error: 'sliders not found / do not exists' })
+        res.status(200).send(sliders)
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
 }
