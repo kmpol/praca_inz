@@ -45,6 +45,7 @@ const Sidebar = () => {
                 <StyledLink to="/admin/dashboard/products/addProduct">Add product</StyledLink>
                 <StyledLink to="/admin/dashboard/categories/addCategory">Add category</StyledLink>
                 <StyledLink to="/admin/dashboard/sliders/createSlider">Create Slider</StyledLink>
+                <StyledLink to="/admin/dashboard/sliders/manageSliders">Manage Sliders</StyledLink>
             </LinkContainer>
         </Container>
     )

@@ -10,3 +10,27 @@ export const createSlider = (slider, history) => async (dispatch) => {
         console.log(e.message)
     }
 }
+
+export const getSliders = () => async (dispatch) => {
+    try {
+        const { data } = await api.getSliders()
+
+        dispatch({
+            type: "GET_SLIDERS",
+            payload: data
+        })
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+
+export const updateSliderQueue = (id, queue) => async (dispatch) => {
+    try {
+        const { data } = await api.updateSliderQueue({ "queue": queue }, id)
+
+        dispatch({ type: 'UPDATE_SLIDER_QUEUE', payload: data })
+
+    } catch (e) {
+        console.log(e.message)
+    }
+}

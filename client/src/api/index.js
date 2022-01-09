@@ -37,6 +37,7 @@ export const getUser = async (id) => await API.get(`${url}/users/${id}`)
 export const updateOrderStatus = async (status, id) => await API.put(`${url}/orders/${id}`, status)
 export const createSlider = async (slider) => await API.post(`${url}/sliders`, slider)
 export const getSliders = async () => await API.get(`${url}/sliders`)
+export const updateSliderQueue = async (queue, id) => await API.put(`${url}/sliders/queue/${id}`, queue)
 export const addCategory = async (category) => await API.post(`${url}/categories`, category)
 export const getCategories = async () => await API.get(`${url}/categories`)
 
