@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import FileBase from 'react-file-base64'
-import { createProduct } from '../../actions/products'
+import { getCategories } from '../../actions/admin/categories'
 
 const Container = styled.div`
     background-color: #dbdbdb;
@@ -59,9 +59,13 @@ const ProductForm = ({ productProp, onSaveClick }) => {
     })
 
     const dispatch = useDispatch()
+    const categories = useSelector(state => state.categories)
+    const categoriesName = categories.map((category) => category.name)
+
+    console.log('GIGACHAD CONSOLE LOG', categories, categoriesName)
 
     useEffect(() => {
-
+        dispatch(getCategories())
     }, [])
 
     const onProductNameChange = (e) => {
@@ -142,7 +146,10 @@ const ProductForm = ({ productProp, onSaveClick }) => {
             <Form>
                 <ProductsInput type="text" placeholder="Product name.." onChange={onProductNameChange} value={product.name} />
                 <ProductsInput type="text" placeholder="Product description.." onChange={onProductDescriptionChange} value={product.description} />
-                <ProductsInput type="text" placeholder="Main category" onChange={onCategoryChange} value={product.mainCategory} />
+
+                <ProductSelect name="mainCateogry" onChange={onCategoryChange} value={product.mainCategory} placeholder='Category name'>
+                    {categoriesName.map((category) => <ProductOption key={category} value={category}>{category}</ProductOption>)}
+                </ProductSelect>
 
                 <ProductSelect name="gender" onChange={onGenderChange} value={product.gender}>
                     <ProductOption defaultChecked value="men" >Men</ProductOption>

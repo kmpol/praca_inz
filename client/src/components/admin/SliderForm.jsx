@@ -53,7 +53,7 @@ const SliderForm = ({ sliderProp, onSaveClick }) => {
 
     return (
         <Container>
-            Add product:
+            Add slider:
             <Form>
                 <ProductsInput type="text" placeholder="Slider title.." onChange={(e) => setSlider({ ...slider, title: e.target.value })} value={slider.name} />
                 <ProductsInput type="text" placeholder="Slider description.." onChange={(e) => setSlider({ ...slider, description: e.target.value })} value={slider.description} />

@@ -9,3 +9,12 @@ export const createCategory = async (req, res) => {
         res.status(500).send(e)
     }
 }
+
+export const getCategories = async (req, res) => {
+    try {
+        const categories = await Category.find({})
+        res.status(200).send(categories)
+    } catch (e) {
+        res.status(500).send(e)
+    }
+}

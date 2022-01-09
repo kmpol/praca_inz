@@ -5,8 +5,6 @@ const categorySchema = new mongoose.Schema({
         type: String,
         unique: true
     }
-}, {
-    timestamps: true
 })
 
 const Category = mongoose.model('Category', categorySchema)
