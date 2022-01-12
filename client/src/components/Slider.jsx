@@ -101,7 +101,7 @@ const Slider = () => {
             </ArrowContainer>
             <SlideContainer index={sliderIndex}>
                 {
-                    sliders.sort((a, b) => a.queue >= b.queue ? 1 : -1).map((item) => (
+                    sliders.filter((slider) => slider.isActive).sort((a, b) => a.queue >= b.queue ? 1 : -1).map((item) => (
                         <Slide key={item._id}>
                             <ImageContainer>
                                 <Image src={item.img} />

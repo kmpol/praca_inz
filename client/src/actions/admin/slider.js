@@ -34,3 +34,14 @@ export const updateSliderQueue = (id, queue) => async (dispatch) => {
         console.log(e.message)
     }
 }
+
+export const updateSliderStatus = (status, id) => async (dispatch) => {
+    try {
+        const { data } = await api.updateSliderStatus({ "isActive": status }, id)
+
+        dispatch({ type: 'UPDATE_SLIDER_STATUS', payload: data })
+
+    } catch (e) {
+        console.log(e.message)
+    }
+}

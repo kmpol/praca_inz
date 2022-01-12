@@ -30,8 +30,6 @@ const UserList = () => {
 
     const adminUsers = useSelector(state => state.adminUsers)
     const stats = useSelector(state => state.stats)
-    console.log(adminUsers)
-    console.log('state', stats)
     return (
         <Container>
             <UserBar>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
-import { updateSliderQueue } from '../../actions/admin/slider'
+import { updateSliderQueue, updateSliderStatus } from '../../actions/admin/slider'
 
 const Container = styled.div`
     display: flex;
@@ -58,7 +58,25 @@ const QueueButton = styled.button`
     flex: 1;
 `
 
-const SliderItem = ({ slider }) => {
+const OrderStatusContainer = styled.div`
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+`
+
+const OrderName = styled.h4`
+
+`
+
+const Select = styled.select`
+    width: 50%;
+`
+
+const Option = styled.option``
+
+const SliderItem = ({ slider, status }) => {
     const [queue, setQueue] = useState()
     const dispatch = useDispatch()
 
@@ -67,7 +85,11 @@ const SliderItem = ({ slider }) => {
         dispatch(updateSliderQueue(slider._id, queue))
         setQueue("")
     }
-
+    const onStatusSelect = (e) => {
+        const status = e.target.value
+        dispatch(updateSliderStatus(status, slider._id))
+    }
+    console.log(slider)
     return (
         <Container>
             <Image src={slider.img} />
@@ -78,7 +100,13 @@ const SliderItem = ({ slider }) => {
                 <QueueInput type={"number"} onChange={(e) => { setQueue(e.target.value) }} value={queue} />
                 <QueueButton onClick={onUpdateQueue}>Update queue</QueueButton>
             </QueueContainer>
-
+            <OrderStatusContainer>
+                <OrderName>Is Active? {status ? "Yes" : "No"}</OrderName>
+                <Select id="status" onChange={onStatusSelect} defaultValue={status}>
+                    <Option value="true" >Yes</Option>
+                    <Option value="false" >No</Option>
+                </Select>
+            </OrderStatusContainer>
         </Container>
     )
 }

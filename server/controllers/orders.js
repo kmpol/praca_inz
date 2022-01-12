@@ -147,6 +147,5 @@ export const getSingleClientOrdersTotal = async (req, res) => {
         res.status(200).send(agregationResponse)
     } catch (e) {
         res.status(500).send(e.message)
-
     }
 }

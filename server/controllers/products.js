@@ -69,7 +69,8 @@ export const updateProduct = async (req, res) => {
     const id = req.params.id
 
     const incomingUpdates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'description', 'mainCategory', 'gender', 'size', 'color', 'price', 'img', 'itemsInStock']
+    const allowedUpdates = ['name', 'description', 'mainCategory', 'gender', 'size',
+        'color', 'price', 'img', 'itemsInStock']
     const isValidUpdate = incomingUpdates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidUpdate) return res.status(400).send({ error: "Invalid updates!" })

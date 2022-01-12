@@ -26,7 +26,7 @@ const SliderList = () => {
         <Container>
             {
                 sliders.length > 0 ? (
-                    sliders.sort((a, b) => a.queue >= b.queue ? 1 : -1).map((slider) => <SliderItem key={slider._id} slider={slider} />)
+                    sliders.sort((a, b) => a.queue >= b.queue ? 1 : -1).map((slider) => <SliderItem key={slider._id} slider={slider} status={slider.isActive} />)
 
                 ) : (
                     "Loading..."

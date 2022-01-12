@@ -33,3 +33,17 @@ export const updateQueueSlider = async (req, res) => {
         res.status(500).send(e.message)
     }
 }
+
+export const updateSliderStatus = async (req, res) => {
+    const id = req.params.id
+    const status = req.body.isActive
+    try {
+        const slider = await Slider.findById(id)
+        if (!slider) return req.status(404).send({ error: 'slider not found / do not exists' })
+        slider.isActive = status
+        await slider.save()
+        res.status(200).send(slider)
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
+}

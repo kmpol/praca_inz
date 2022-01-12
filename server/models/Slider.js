@@ -15,6 +15,10 @@ const sldierSchema = new mongoose.Schema({
     queue: {
         type: Number,
         default: 999
+    },
+    isActive: {
+        type: Boolean,
+        default: true
     }
 }, {
     timestamps: true
