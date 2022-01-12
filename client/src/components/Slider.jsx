@@ -92,8 +92,7 @@ const Slider = () => {
         dispatch(getSliders())
     }, [])
 
-    const sliders = useSelector(state => state.slider)
-    console.log('SLIDERS', sliders)
+    const sliders = useSelector(state => state.slider).filter((slider) => slider.isActive)
     return (
         <Container>
             <ArrowContainer direction="left" onClick={() => { handleArrowClick("left") }}>
@@ -101,7 +100,7 @@ const Slider = () => {
             </ArrowContainer>
             <SlideContainer index={sliderIndex}>
                 {
-                    sliders.filter((slider) => slider.isActive).sort((a, b) => a.queue >= b.queue ? 1 : -1).map((item) => (
+                    sliders.sort((a, b) => a.queue >= b.queue ? 1 : -1).map((item) => (
                         <Slide key={item._id}>
                             <ImageContainer>
                                 <Image src={item.img} />
