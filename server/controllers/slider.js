@@ -47,3 +47,18 @@ export const updateSliderStatus = async (req, res) => {
         res.status(500).send(e.message)
     }
 }
+
+export const updateSlider = async (req, res) => {
+    const id = req.params.id
+    try {
+        const newSlider = await Slider.findByIdAndUpdate(id, {
+            ...req.body
+        }, {
+            new: true
+        })
+        res.status(200).send(newSlider)
+    } catch (e) {
+        res.status(500).send(e.message)
+
+    }
+}
