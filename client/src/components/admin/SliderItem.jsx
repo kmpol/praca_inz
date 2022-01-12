@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 import { updateSliderQueue, updateSliderStatus } from '../../actions/admin/slider'
 
@@ -63,6 +64,16 @@ const OrderStatusContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+`
+
+const EditContainer = styled.div`
+        flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-left: 10px;
 `
 
@@ -75,6 +86,14 @@ const Select = styled.select`
 `
 
 const Option = styled.option``
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+    &:hover{
+        font-weight: 600;
+    }
+`
 
 const SliderItem = ({ slider, status }) => {
     const [queue, setQueue] = useState()
@@ -107,6 +126,9 @@ const SliderItem = ({ slider, status }) => {
                     <Option value="false" >No</Option>
                 </Select>
             </OrderStatusContainer>
+            <EditContainer>
+                <StyledLink to={`/admin/dashboard/sliders/editSlider/${slider._id}`}>Edit</StyledLink>
+            </EditContainer>
         </Container>
     )
 }

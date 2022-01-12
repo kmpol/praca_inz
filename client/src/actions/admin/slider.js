@@ -45,3 +45,16 @@ export const updateSliderStatus = (status, id) => async (dispatch) => {
         console.log(e.message)
     }
 }
+
+
+export const removeSlider = (id, history) => async (dispatch) => {
+    try {
+        const { data } = await api.removeSlider(id)
+
+        dispatch({ type: 'REMOVE_SLIDER', payload: data })
+
+        history.push('/admin/dashboard/sliders/manageSliders')
+    } catch (e) {
+        console.log(e.message)
+    }
+}

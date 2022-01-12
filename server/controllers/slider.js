@@ -20,6 +20,17 @@ export const getSliders = async (req, res) => {
     }
 }
 
+export const getSlider = async (req, res) => {
+    const id = req.params.id
+    try {
+        const slider = await Slider.findById(id)
+        if (!slider) return req.status(404).send({ error: 'slider not found' })
+        res.status(200).send(slider)
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
+}
+
 export const updateQueueSlider = async (req, res) => {
     const id = req.params.id
     const queue = req.body.queue
@@ -57,6 +68,17 @@ export const updateSlider = async (req, res) => {
             new: true
         })
         res.status(200).send(newSlider)
+    } catch (e) {
+        res.status(500).send(e.message)
+
+    }
+}
+
+export const removeSlider = async (req, res) => {
+    const id = req.params.id
+    try {
+        const removedSlider = await Slider.findByIdAndRemove(id)
+        res.status(200).send(removedSlider)
     } catch (e) {
         res.status(500).send(e.message)
 

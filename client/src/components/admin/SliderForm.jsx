@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import FileBase from 'react-file-base64'
+import { useDispatch } from 'react-redux'
+
+import { removeSlider } from '../../actions/admin/slider'
+import { useHistory } from 'react-router'
 
 const Container = styled.div`
     background-color: #dbdbdb;
@@ -32,12 +36,24 @@ const Button = styled.button`
     border: none;
     height: 32px;
     cursor: pointer;
+    margin: 24px;
+`
+
+const RemoveButton = styled.button`
+    width: 50%;
+    background-color: #a02d40;
+    border: none;
+    height: 32px;
+    color: #ffd7d7;
+    cursor: pointer;
 `
 
 
 const SliderForm = ({ sliderProp, onSaveClick }) => {
+    const dispatch = useDispatch()
+    const history = useHistory()
     const [slider, setSlider] = useState({
-        title: sliderProp?.name ? sliderProp.name : '',
+        title: sliderProp?.title ? sliderProp.title : '',
         description: sliderProp?.description ? sliderProp.description : '',
         img: sliderProp?.img ? sliderProp.img : ''
     })
@@ -45,6 +61,11 @@ const SliderForm = ({ sliderProp, onSaveClick }) => {
     const onSaveClickButton = (e) => {
         e.preventDefault()
         onSaveClick(slider)
+    }
+
+    const onRemoveClickButton = (e) => {
+        e.preventDefault()
+        dispatch(removeSlider(sliderProp._id, history))
     }
 
     // SPRAWDZIC CZY DZIALA WYSLANIE DO MONGODB XD
@@ -55,7 +76,7 @@ const SliderForm = ({ sliderProp, onSaveClick }) => {
         <Container>
             Add slider:
             <Form>
-                <ProductsInput type="text" placeholder="Slider title.." onChange={(e) => setSlider({ ...slider, title: e.target.value })} value={slider.name} />
+                <ProductsInput type="text" placeholder="Slider title.." onChange={(e) => setSlider({ ...slider, title: e.target.value })} value={slider.title} />
                 <ProductsInput type="text" placeholder="Slider description.." onChange={(e) => setSlider({ ...slider, description: e.target.value })} value={slider.description} />
 
                 <FileBase
@@ -65,6 +86,14 @@ const SliderForm = ({ sliderProp, onSaveClick }) => {
                 />
 
                 <Button onClick={onSaveClickButton}>Save!</Button>
+                {
+                    sliderProp ?
+                        (
+                            <RemoveButton onClick={onRemoveClickButton}>test</RemoveButton>
+                        ) : (
+                            ""
+                        )
+                }
             </Form>
         </Container>
     )

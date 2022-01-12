@@ -27,6 +27,7 @@ import AddProductPage from './pages/admin/AddProductPage'
 import AddCategoryPage from './pages/admin/AddCategoryPage'
 import EditProductPage from './pages/admin/EditProductPage'
 import CreateSliderPage from './pages/admin/CreateSliderPage'
+import EditSliderPage from './pages/admin/EditSliderPage'
 
 //Styles
 import './styles.css'
@@ -66,11 +67,10 @@ const App = () => {
                     <Route exact path="/admin/dashboard/categories/addCategory" component={AddCategoryPage} />
                     <Route exact path="/admin/dashboard/products/editProduct/:id" component={EditProductPage} />
                     <Route exact path="/admin/dashboard/sliders/createSlider" component={CreateSliderPage} />
+                    <Route exact path="/admin/dashboard/sliders/editSlider/:id" component={EditSliderPage} />
                     <Route exact path="/admin/dashboard/sliders/manageSliders" component={ManageSliderPage} />
 
                     <Route path="*" component={NotFoundPage} />
-
-
                 </Switch>
 
             </Router>
