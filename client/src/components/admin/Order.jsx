@@ -122,7 +122,7 @@ const Order = ({ order, status, products }) => {
                 </PaymentContainer>
                 <Products>
                     {
-                        products.length > 0 ? (
+                        products?.length > 0 ? (
                             products.map((product) => {
                                 return (
                                     <div key={product._id}>

@@ -47,3 +47,9 @@ export const getCategories = async () => await API.get(`${url}/categories`)
 
 export const getClientsTotal = async () => await API.get(`${url}/orders/clientstotal`)
 export const getClientOrders = async (id) => await API.get(`${url}/orders/client/${id}/orderstotal`)
+export const getAdminStatsLast7Days = async () => await API.get(`${url}/orders/stats/last7Days`)
+export const getAdminStatsLast30Days = async () => await API.get(`${url}/orders/stats/last30Days`)
+
+export const getAdminStatsLast7DaysOrders = async () => await API.get(`${url}/orders/stats/lastorders7Days`)
+export const getAdminStatsLast30DaysOrders = async () => await API.get(`${url}/orders/stats/lastorders30Days`)
+

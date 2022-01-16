@@ -149,3 +149,95 @@ export const getSingleClientOrdersTotal = async (req, res) => {
         res.status(500).send(e.message)
     }
 }
+
+export const getSalesLast7Days = async (req, res) => {
+    try {
+        const agregationResponse = await Order.aggregate([
+            {
+                $match: {
+                    "$expr": {
+                        "$gte": [
+                            "$createdAt",
+                            { $add: [new Date(), -604800000] }
+                        ]
+                    }
+                }
+            },
+            { $group: { _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } }, total: { $sum: "$payment.amount" } } },
+            { $sort: { _id: 1 } }
+        ])
+
+        res.status(200).send(agregationResponse)
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
+}
+
+export const getOrders7Days = async (req, res) => {
+    try {
+        const agregationResponse = await Order.aggregate([
+            {
+                $match: {
+                    "$expr": {
+                        "$gte": [
+                            "$createdAt",
+                            { $add: [new Date(), -604800000] }
+                        ]
+                    }
+                }
+            },
+            { $group: { _id: "$status", total: { $sum: 1 } } },
+            { $sort: { _id: 1 } }
+        ])
+
+        res.status(200).send(agregationResponse)
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
+}
+
+export const getSalesLast30Days = async (req, res) => {
+    try {
+        const agregationResponse = await Order.aggregate([
+            {
+                $match: {
+                    "$expr": {
+                        "$gte": [
+                            "$createdAt",
+                            { $add: [new Date(), -2592000000] }
+                        ]
+                    }
+                }
+            },
+            { $group: { _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } }, total: { $sum: "$payment.amount" } } },
+            { $sort: { _id: 1 } }
+        ])
+
+        res.status(200).send(agregationResponse)
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
+}
+
+export const getOrders30Days = async (req, res) => {
+    try {
+        const agregationResponse = await Order.aggregate([
+            {
+                $match: {
+                    "$expr": {
+                        "$gte": [
+                            "$createdAt",
+                            { $add: [new Date(), -2592000000] }
+                        ]
+                    }
+                }
+            },
+            { $group: { _id: "$status", total: { $sum: 1 } } },
+            { $sort: { _id: 1 } }
+        ])
+
+        res.status(200).send(agregationResponse)
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
+}

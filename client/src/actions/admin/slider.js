@@ -5,7 +5,7 @@ export const createSlider = (slider, history) => async (dispatch) => {
         const { data } = await api.createSlider(slider)
         // dispatch({ type: 'GET_USERS', payload: data })
 
-        history.push('/admin/dashboard')
+        history.push('/admin/dashboard/sliders/manageSliders')
     } catch (e) {
         console.log(e.message)
     }

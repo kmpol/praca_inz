@@ -141,7 +141,7 @@ const Product = ({ product, sales }) => {
         history.push(`/admin/dashboard/products/editProduct/${product._id}`)
     }
 
-    console.log(sales)
+    // console.log('sales', sales)
     return (
         <Container>
             <OfferContainer>

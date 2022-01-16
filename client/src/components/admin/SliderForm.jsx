@@ -89,7 +89,7 @@ const SliderForm = ({ sliderProp, onSaveClick }) => {
                 {
                     sliderProp ?
                         (
-                            <RemoveButton onClick={onRemoveClickButton}>test</RemoveButton>
+                            <RemoveButton onClick={onRemoveClickButton}>Remove</RemoveButton>
                         ) : (
                             ""
                         )
