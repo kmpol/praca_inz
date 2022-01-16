@@ -184,22 +184,23 @@ const DashboardPage = () => {
                         </SmallContainerHeaderContainer>
                         <SmallContainerContentContainer>
                             {
-                                days == 7 ? (<>
-                                    {stats7DaysOrders.map((status) => {
-                                        return <StatusContainer key={status._id}>
-                                            <StatusTitle>{status._id}:</StatusTitle>
-                                            <StatusNumber>{status.total}</StatusNumber>
+                                days == 7 ? (
+                                    <>
+                                        {stats7DaysOrders.map((status) => {
+                                            return <StatusContainer key={status._id}>
+                                                <StatusTitle>{status._id}:</StatusTitle>
+                                                <StatusNumber>{status.total}</StatusNumber>
+                                            </StatusContainer>
+                                        })}
+                                        <StatusContainer>
+                                            <StatusTitle>Total orders:</StatusTitle>
+                                            <StatusNumber>{stats7DaysOrdersNumber}</StatusNumber>
                                         </StatusContainer>
-                                    })}
-                                    <StatusContainer>
-                                        <StatusTitle>Total orders:</StatusTitle>
-                                        <StatusNumber>{stats7DaysOrdersNumber}</StatusNumber>
-                                    </StatusContainer>
-                                    <StatusContainer>
-                                        <StatusTitle>Total amount:</StatusTitle>
-                                        <StatusNumber>{amount7Days} USD</StatusNumber>
-                                    </StatusContainer>
-                                </>
+                                        <StatusContainer>
+                                            <StatusTitle>Total amount:</StatusTitle>
+                                            <StatusNumber>{amount7Days} USD</StatusNumber>
+                                        </StatusContainer>
+                                    </>
                                 ) : (
                                     <>
                                         {stats30DaysOrders.map((status) => {

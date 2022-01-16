@@ -152,7 +152,6 @@ const Product = ({ product, sales }) => {
                     <Title>{product.name}</Title>
                 </TitleContainer>
             </OfferContainer>
-            <AvailabilityContainer>{product.itemsInStock}</AvailabilityContainer>
             <PriceContainer>{(product.price).toFixed(2)} USD</PriceContainer>
             <DetailsContainer>
                 <ProductDetails><strong>gender:</strong> {product.gender}</ProductDetails>

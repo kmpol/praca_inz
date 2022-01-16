@@ -54,8 +54,7 @@ const ProductForm = ({ productProp, onSaveClick }) => {
         size: productProp?.size ? productProp.size : '',
         color: productProp?.color ? productProp.color : '',
         price: productProp?.price ? productProp.price : 0,
-        img: productProp?.img ? productProp.img : "",
-        itemsInStock: productProp?.itemsInStock ? productProp.itemsInStock : 0
+        img: productProp?.img ? productProp.img : ""
     })
 
     const dispatch = useDispatch()
@@ -125,14 +124,6 @@ const ProductForm = ({ productProp, onSaveClick }) => {
         })
     }
 
-    const onItemsInStockChange = (e) => {
-        const itemsInStock = e.target.value
-        setProduct({
-            ...product,
-            itemsInStock
-        })
-    }
-
     const onSaveClickButton = (e) => {
         e.preventDefault()
         onSaveClick(product)
@@ -164,7 +155,6 @@ const ProductForm = ({ productProp, onSaveClick }) => {
                     multiple={false}
                     onDone={({ base64 }) => setProduct({ ...product, img: base64 })}
                 />
-                <ProductsInput type="number" placeholder={"Items in stock"} onChange={onItemsInStockChange} value={product.itemsInStock} />
 
                 <Button onClick={onSaveClickButton}>Save!</Button>
             </Form>

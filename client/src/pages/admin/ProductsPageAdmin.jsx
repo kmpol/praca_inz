@@ -81,7 +81,6 @@ const ProductsPageAdmin = () => {
                     <ProductList>
                         <ProductBar>
                             <UserColumnOffer>offer</UserColumnOffer>
-                            <UserColumn>pieces / availability</UserColumn>
                             <UserColumn>price</UserColumn>
                             <UserColumn>details</UserColumn>
                             <UserColumn>sales total</UserColumn>

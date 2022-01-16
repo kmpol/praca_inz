@@ -29,10 +29,6 @@ const productSchema = new mongoose.Schema({
     img: {
         type: String
     },
-    itemsInStock: {
-        type: Number,
-        default: 1
-    },
     isActiveSale: {
         type: Boolean,
         default: true
