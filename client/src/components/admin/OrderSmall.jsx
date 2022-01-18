@@ -5,19 +5,17 @@ import { Link } from 'react-router-dom'
 
 const Container = styled.div`
     display: flex;
-    
 `
 const OrderDetails = styled.p`
     padding: 10px;
     display: flex;
     flex: 1;
-    justify-content: flex-start;
-    align-items: center;
 `
 
 const StyledLink = styled(Link)`
     text-decoration: none;
     color: black;
+    border-bottom: 1px solid black;
 
     &:hover{
         font-weight: 600;

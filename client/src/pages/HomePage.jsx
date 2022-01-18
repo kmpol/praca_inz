@@ -13,8 +13,6 @@ const HomePage = () => {
     useEffect(() => {
         dispatch(getProducts())
     }, [dispatch])
-    const state = useSelector(state => state)
-    console.log(state)
     return (
         <div>
             <Navbar />

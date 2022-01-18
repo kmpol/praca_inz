@@ -18,9 +18,11 @@ import {
 } from 'recharts'
 import { getProducts } from '../../actions/products'
 import { getOrders } from '../../actions/admin/orders'
+import { getUsers } from '../../actions/admin/users'
 import productsSales from '../../selectors/productSales'
 import Product from '../../components/admin/Product'
 import OrderSmall from '../../components/admin/OrderSmall'
+import DashboardUser from '../../components/admin/DashboardUser'
 
 const Container = styled.div`
     width: 100%;
@@ -46,7 +48,7 @@ const SmallContainer = styled.div`
     flex-direction: column;
     flex: 1;
     background-color: #ffffff;
-    margin: 10px;
+    margin: 10px 10px 10px 10px;
     padding: 10px;
 `
 
@@ -75,11 +77,13 @@ const SmallContainerContentContainer = styled.div`
     flex: 4;
     display: flex;
     flex-direction: column;
+    align-items: space-between;
 `
 
 const StatusContainer = styled.div`
     display: flex;
     margin-top: 5%;
+    border-bottom: 1px solid black;
 `
 
 const StatusTitle = styled.p`
@@ -133,10 +137,13 @@ const DashboardPage = () => {
         dispatch(getAdminStatsLast30DaysOrders())
         dispatch(getProducts())
         dispatch(getOrders())
+        dispatch(getUsers())
     }, [])
 
     // const products = useSelector(state => state.products)
     const orders = useSelector(state => state.adminOrders)
+    const users = useSelector(state => state.adminUsers)
+    console.log(users)
 
     const stats7DaysOrders = useSelector(state => state.stats.last7DaysOrders)
     const stats30DaysOrders = useSelector(state => state.stats.last30DaysOrders)
@@ -251,10 +258,23 @@ const DashboardPage = () => {
                             }
                         </SmallContainerContentContainer>
                     </SmallContainer>
-                    <MediumContainer>
-                        <TitleMediumContainer>Sales: last 7 days</TitleMediumContainer>
-                        <ChartBar data={stats7Days} />
-                    </MediumContainer>
+                    <SmallContainer>
+                        <SmallContainerHeaderContainer>
+                            <SmallContainerTitle>Newest users</SmallContainerTitle>
+                        </SmallContainerHeaderContainer>
+                        <SmallContainerContentContainer>
+                            {
+                                users.length > 0 ? (
+                                    users.sort((a, b) => a.createdAt > b.createdAt ? -1 : 1).slice(0, 5).map((user) => {
+                                        return <DashboardUser user={user} />
+                                    })
+                                ) : (
+                                    "Loading.."
+                                )
+
+                            }
+                        </SmallContainerContentContainer>
+                    </SmallContainer>
                 </Wrapper>
             </DashboardContainer>
         </Container>
