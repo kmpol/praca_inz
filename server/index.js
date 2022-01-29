@@ -16,13 +16,21 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 5000
 
+// app.use(express.json({
+//     verify: (req, res, buffer) => req['rawBody'] = buffer
+// }))
+
 app.use(express.json({
-    verify: (req, res, buffer) => req['rawBody'] = buffer
-}))
+    verify: function (req, res, buf) {
+        var url = req.originalUrl;
+        if (url.startsWith('/webhook')) {
+            req.rawBody = buf.toString();
+        }
+    }
+}));
 
-app.use(express.json({ limit: '50mb', extended: true }));
-
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(express.json({ limit: '10mb', extended: true }));
+app.use(express.urlencoded({ limit: '10mb', parameterLimit: 100000, extended: true }));
 
 app.use(cors())
 

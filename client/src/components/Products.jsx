@@ -7,6 +7,7 @@ import { getProducts } from '../actions/products'
 import Product from './Product'
 import selectProducts from '../selectors/products'
 import { setColor, setGender, setMainCategory, setSize } from '../actions/filters'
+import { useState } from 'react'
 
 const Container = styled.div`
     display: flex;
@@ -15,7 +16,13 @@ const Container = styled.div`
     justify-content: center;
 `
 
+const Title = styled.h2`
+    display: flex;
+    justify-content: center;
+`
+
 const Products = () => {
+    const [isHomePage, setIsHomePage] = useState(true)
     const dispatch = useDispatch()
     const location = useLocation()
 
@@ -31,6 +38,14 @@ const Products = () => {
 
     }, [])
 
+    useEffect(() => {
+        if (location.pathname === '/') {
+            setIsHomePage(true)
+        } else {
+            setIsHomePage(false)
+        }
+    }, [location])
+
     const products = useSelector(state => state.products)
     const filters = useSelector(state => state.filters)
 
@@ -43,18 +58,30 @@ const Products = () => {
             {
                 products ? (
                     <>
-                        <h2>Products:</h2>
+                        <Title>{isHomePage ? "Phitusiowe produkty:" : "Products:"} </Title>
                         <Container>
-                            {
-
-                                selectProducts(products, filters).length > 0 ? (
-                                    selectProducts(products, filters).map((product) => (
-                                        <Product key={product._id} product={product} />
-                                    ))
+                            <>
+                                {isHomePage ? (
+                                    selectProducts(products, filters).length > 0 ? (
+                                        selectProducts(products, filters).slice(0, 10).sort((a, b) => a.createdAt > b.createdAt ? -1 : 1).map((product) => (
+                                            <Product key={product._id} product={product} />
+                                        ))
+                                    ) : (
+                                        "No products..."
+                                    )
                                 ) : (
-                                    "No products..."
-                                )
-                            }
+                                    selectProducts(products, filters).length > 0 ? (
+                                        selectProducts(products, filters).sort((a, b) => a.createdAt > b.createdAt ? -1 : 1).map((product) => (
+                                            <Product key={product._id} product={product} />
+                                        ))
+                                    ) : (
+                                        "No products..."
+                                    )
+
+                                )}
+
+                            </>
+
                         </Container>
                     </>
 

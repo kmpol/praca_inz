@@ -34,23 +34,34 @@ const InfoContainer = styled.div`
 `
 
 const ProductName = styled.h2`
-    margin: 24px 12px;
+    margin: 24px 0px;
     display: flex;
     flex:1;
     align-items: center;
 `
 
 const ProductDescription = styled.p`
-    margin: 24px 12px;
+    margin: 24px 0px;
     flex: 3;
     display: flex;
     align-items: flex-start;
 `
 
 const ProductPrice = styled.p`
-    margin: 24px 12px;
+    margin: 24px 0px;
     flex: 1;
     align-items: flex-start;
+`
+
+const ProductDetailContainer = styled.p`
+    margin: 24px 0px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+`
+const ProductDetail = styled.p`
+
 `
 
 const AddToCartButton = styled.button`
@@ -86,7 +97,6 @@ const ProductPage = () => {
     const id = location.pathname.replace("/product/", "")
 
     useEffect(async () => {
-        console.log('KOCHAM BEATKE')
         setProduct(await dispatch(getProduct(id)))
     }, [id])
 
@@ -103,6 +113,7 @@ const ProductPage = () => {
         setError(false)
         dispatch(addProduct(payload))
     }
+    console.log(product)
 
     return (
         <div>
@@ -119,6 +130,13 @@ const ProductPage = () => {
                                     <>
                                         <ProductName>{product.name}</ProductName>
                                         <ProductDescription>{product.description}</ProductDescription>
+                                        <ProductDetailContainer>
+                                            <ProductDetail>Category: {product.mainCategory}</ProductDetail>
+                                            <ProductDetail>Size: {product.size}</ProductDetail>
+                                            <ProductDetail>Gender: {product.gender}</ProductDetail>
+                                            <ProductDetail>Color: {product.color}</ProductDetail>
+                                        </ProductDetailContainer>
+
                                         <ProductPrice>Price: <strong>${product.price}</strong></ProductPrice>
                                         Quantity:<Quantity onChange={(e) => setquantityOfItem(e.target.value)} value={quantityOfItem} />
                                         <AddToCartButton onClick={onClickButton}>ADD TO CART</AddToCartButton>

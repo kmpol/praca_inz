@@ -64,7 +64,7 @@ const Filters = () => {
         filters.gender && selectElement("gender", filters.gender)
         filters.size && selectElement("size", filters.size)
         filters.color && selectElement("color", filters.color)
-    }, [])
+    }, [filters])
 
     const onGenderSelect = (e) => {
         const gender = e.target.value

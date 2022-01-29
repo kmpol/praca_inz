@@ -114,7 +114,6 @@ const TitleMediumContainer = styled.h2`
     justify-content: center;
 `
 
-//yes, yes, I know that
 const ChartBar = ({ data }) => (
     <ResponsiveContainer width={`100%`} height={`100%`} >
         <AreaChart data={data}>
@@ -168,8 +167,42 @@ const DashboardPage = () => {
 
 
 
-    // const sales = productsSales(products, orders)
-    // console.log(sales)
+    const dates7 = [...Array(7)].map((_, i) => {
+        let d = new Date()
+        d.setDate(d.getDate() - i)
+        d = moment(d).format('YYYY-MM-DD')
+        return d
+    }).map((d) => ({
+        _id: d,
+        total: 0
+    }))
+    const dates30 = [...Array(30)].map((_, i) => {
+        let d = new Date()
+        d.setDate(d.getDate() - i)
+        d = moment(d).format('YYYY-MM-DD')
+        return d
+    }).map((d) => ({
+        _id: d,
+        total: 0
+    }))
+
+    const chart7 = dates7.map((date) => {
+        for (let i = 0; i < stats7Days.length; i++) {
+            if (date._id == stats7Days[i]._id) {
+                return stats7Days[i]
+            }
+        }
+        return date
+    })
+    const chart30 = dates30.map((date) => {
+        for (let i = 0; i < stats30Days.length; i++) {
+            if (date._id == stats30Days[i]._id) {
+                return stats30Days[i]
+            }
+        }
+        return date
+    })
+    console.log(stats30Days, dates30, chart30)
 
     const onDaysSelect = (e) => {
         setDays(e.target.value)
@@ -205,7 +238,7 @@ const DashboardPage = () => {
                                         </StatusContainer>
                                         <StatusContainer>
                                             <StatusTitle>Total amount:</StatusTitle>
-                                            <StatusNumber>{amount7Days} USD</StatusNumber>
+                                            <StatusNumber>{amount7Days.toFixed(2)} USD</StatusNumber>
                                         </StatusContainer>
                                     </>
                                 ) : (
@@ -222,7 +255,7 @@ const DashboardPage = () => {
                                         </StatusContainer>
                                         <StatusContainer>
                                             <StatusTitle>Total amount:</StatusTitle>
-                                            <StatusNumber>{amount30Days} USD</StatusNumber>
+                                            <StatusNumber>{amount30Days.toFixed(2)} USD</StatusNumber>
                                         </StatusContainer>
                                     </>
                                 )
@@ -233,9 +266,9 @@ const DashboardPage = () => {
                         <TitleMediumContainer>Sales: last {days} days</TitleMediumContainer>
                         {
                             days == 7 ? (
-                                <ChartBar data={stats7Days} />
+                                <ChartBar data={chart7.reverse()} />
                             ) : (
-                                <ChartBar data={stats30Days} />
+                                <ChartBar data={chart30.reverse()} />
                             )
                         }
                     </MediumContainer>
