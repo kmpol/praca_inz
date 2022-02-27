@@ -53,3 +53,10 @@ export const getAdminStatsLast30Days = async () => await API.get(`${url}/orders/
 export const getAdminStatsLast7DaysOrders = async () => await API.get(`${url}/orders/stats/lastorders7Days`)
 export const getAdminStatsLast30DaysOrders = async () => await API.get(`${url}/orders/stats/lastorders30Days`)
 
+//Orders
+export const getClientLoggedOrders = async () => await API.get(`${url}/orders/client`)
+export const hasReturnedOrder = async (id) => await API.put(`${url}/orders/hasreturned/${id}`)
+
+//Returns
+export const createReturn = async (products, id) => await API.post(`${url}/returns/${id}`, { products: [...products] })
+export const getUserReturn = async () => await API.get(`${url}/returns`)

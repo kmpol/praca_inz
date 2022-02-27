@@ -18,7 +18,11 @@ const orderSchema = new mongoose.Schema({
         },
         quantity: Number
 
-    }]
+    }],
+    has_returned: {
+        type: Boolean,
+        default: false
+    }
 }, {
     timestamps: true
 })

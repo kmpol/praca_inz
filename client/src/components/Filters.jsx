@@ -58,7 +58,12 @@ const Filters = () => {
     const dispatch = useDispatch()
     const filters = useSelector(state => state.filters)
     const categoriesArray = useSelector(state => state.products).map((item) => item.mainCategory)
+    const colorsArray = useSelector(state => state.products).map((item) => item.color)
+    const sizesArray = useSelector(state => state.products).map((item) => item.size)
+
     const categories = [...new Set(categoriesArray)]
+    const colors = [...new Set(colorsArray)]
+    const sizes = [...new Set(sizesArray)]
 
     useEffect(() => {
         filters.gender && selectElement("gender", filters.gender)
@@ -115,19 +120,14 @@ const Filters = () => {
                     <FilterName>Size:</FilterName>
                     <Select id="size" onChange={onSizeSelect}>
                         <Option value="">All</Option>
-                        <Option value="M">M</Option>
-                        <Option value="L">L</Option>
-                        <Option value="XL">XL</Option>
+                        {sizes.map((size) => <Option key={size} value={size}>{size}</Option>)}
                     </Select>
                 </SizeFilter>
                 <ColorFilter>
                     <FilterName>Color:</FilterName>
                     <Select id="color" onChange={onColorSelect}>
                         <Option value="">All</Option>
-                        <Option value="black">Black</Option>
-                        <Option value="white">White</Option>
-                        <Option value="green">Green</Option>
-                        <Option value="yellow">Yellow</Option>
+                        {colors.map((color) => <Option key={color} value={color}>{color}</Option>)}
                     </Select>
                 </ColorFilter>
             </Filter>

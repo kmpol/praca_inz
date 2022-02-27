@@ -83,7 +83,8 @@ const webhook = async (request, response) => {
                     },
                     payment: {
                         amount: session.amount_total,
-                        currency: session.currency
+                        currency: session.currency,
+                        shipping_amount: session.total_details.amount_shipping
                     },
                     status: "new",
                     owner: session.client_reference_id,

@@ -93,7 +93,7 @@ export const getOrder = async (req, res) => {
 export const getOrdersClient = async (req, res) => {
     const user = req.user
     try {
-        const orders = await Order.find({ owner: user._id })
+        const orders = await Order.find({ owner: user._id }).populate('products.product').exec()
         res.status(200).send(orders)
     } catch (e) {
         res.status(500).send(e.message)
@@ -239,5 +239,16 @@ export const getOrders30Days = async (req, res) => {
         res.status(200).send(agregationResponse)
     } catch (e) {
         res.status(500).send(e.message)
+    }
+}
+
+export const hasReturnedOrder = async (req, res) => {
+    try {
+        const order = await Order.findByIdAndUpdate(req.params.id)
+        order.has_returned = true
+        await order.save()
+        res.status(200).send(order)
+    } catch (e) {
+        res.status(500).send(e)
     }
 }

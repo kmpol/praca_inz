@@ -8,6 +8,13 @@ import RegisterPage from './pages/RegisterPage'
 import ForgotPasswordPage from './pages/ForgotPasswordPage'
 import ForgotPasswordPageSuccess from './pages/ForgotPasswordPageSuccess'
 import ResetPasswordPage from './pages/ResetPasswordPage'
+
+import AccountPage from './pages/AccountPage'
+import AccountPageOrders from './pages/AccountPageOrders'
+import AccountPageReturns from './pages/AccountPageReturns'
+import AccountPageComplaints from './pages/AccountPageComplaints'
+import CreateReturnPage from './pages/CreateReturnPage'
+
 import ProductsPage from './pages/ProductsPage'
 import ProductPage from './pages/ProductPage'
 import CartPage from './pages/CartPage'
@@ -55,6 +62,13 @@ const App = () => {
                     <Route exact path="/forgotpassword" component={ForgotPasswordPage} />
                     <Route path="/forgotpassword/success" component={ForgotPasswordPageSuccess} />
                     <Route path="/resetpassword/:resetToken" component={ResetPasswordPage} />
+
+                    {/* Account related routes */}
+                    <Route exact path="/account" component={AccountPage} />
+                    <Route exact path="/account/orders" component={AccountPageOrders} />
+                    <Route exact path="/account/returns" component={AccountPageReturns} />
+                    <Route exact path="/account/complaints" component={AccountPageComplaints} />
+                    <Route exact path="/account/returns/createReturn/:id" component={CreateReturnPage} />
 
                     {/* Admin dashboard realted routes */}
                     <Route exact path="/admin/dashboard" component={DashboardPage} />

@@ -123,7 +123,7 @@ const Navbar = () => {
                 {
                     profile ? (
                         <>
-                            <Greeting>Hello, {profile?.user?.name}</Greeting>
+                            <StyledLink to="/account">Hello, {profile?.user?.name}</StyledLink>
                             <LinkWrap>
                                 <StyledLink to="#" onClick={onLogoutClick}>Logout</StyledLink>
                             </LinkWrap>

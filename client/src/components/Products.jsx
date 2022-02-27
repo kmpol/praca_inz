@@ -58,7 +58,7 @@ const Products = () => {
             {
                 products ? (
                     <>
-                        <Title>{isHomePage ? "Phitusiowe produkty:" : "Products:"} </Title>
+                        <Title>{isHomePage ? "Najnowsze produkty:" : "Products:"} </Title>
                         <Container>
                             <>
                                 {isHomePage ? (
