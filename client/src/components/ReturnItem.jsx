@@ -74,7 +74,7 @@ const ReturnItem = ({ item }) => {
     return (
         <Wrapper>
             <OrderStatus>status: {item.status}</OrderStatus>
-            <OrderStatus>Return date: {moment(item.createdAt).format('DD-MM-YYYY')}</OrderStatus>
+            <OrderStatus>Return date: {moment(item.createdAt).format('DD-MM-YYYY hh:mm')}</OrderStatus>
         </Wrapper>
     )
 }

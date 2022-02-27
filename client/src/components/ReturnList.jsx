@@ -17,7 +17,7 @@ const ReturnList = ({ returns }) => {
                 returns.length === 0 ? (
                     "No returns..."
                 ) : (
-                    returns[0].map((_return) => <ReturnItem item={_return} />)
+                    returns[0].sort((a, b) => a.createdAt > b.createdAt ? -1 : 1).map((_return) => <ReturnItem item={_return} />)
                 )
             }
         </Wrapper>

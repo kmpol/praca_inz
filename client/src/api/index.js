@@ -60,3 +60,5 @@ export const hasReturnedOrder = async (id) => await API.put(`${url}/orders/hasre
 //Returns
 export const createReturn = async (products, id) => await API.post(`${url}/returns/${id}`, { products: [...products] })
 export const getUserReturn = async () => await API.get(`${url}/returns`)
+export const getReturnsAdmin = async () => await API.get(`${url}/returns/admin`)
+export const updateReturnStatus = async (id, status) => await API.put(`${url}/returns/${id}/updateStatus`, status)

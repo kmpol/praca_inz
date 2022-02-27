@@ -35,6 +35,7 @@ import AddCategoryPage from './pages/admin/AddCategoryPage'
 import EditProductPage from './pages/admin/EditProductPage'
 import CreateSliderPage from './pages/admin/CreateSliderPage'
 import EditSliderPage from './pages/admin/EditSliderPage'
+import ReturnsPage from './pages/admin/ReturnsPage'
 
 //Styles
 import './styles.css'
@@ -83,6 +84,7 @@ const App = () => {
                     <Route exact path="/admin/dashboard/sliders/createSlider" component={CreateSliderPage} />
                     <Route exact path="/admin/dashboard/sliders/editSlider/:id" component={EditSliderPage} />
                     <Route exact path="/admin/dashboard/sliders/manageSliders" component={ManageSliderPage} />
+                    <Route exact path="/admin/dashboard/returns" component={ReturnsPage} />
 
                     <Route path="*" component={NotFoundPage} />
                 </Switch>
