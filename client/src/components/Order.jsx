@@ -94,7 +94,10 @@ const Order = ({ item }) => {
                 {
                     !item.has_returned && <Button to={`/account/returns/createReturn/${item._id}`}>Return</Button>
                 }
-                <Button to="#">Make Complaint</Button>
+                {
+                    !item.has_complained && <Button to={`/account/complaints/createComplaint/${item._id}`}>Make Complaint</Button>
+
+                }
             </ButtonContainer>
         </Wrapper>
     )

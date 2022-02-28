@@ -9,6 +9,7 @@ import orderRouter from './routes/orders.js'
 import sliderRouter from './routes/slider.js'
 import categoryRouter from './routes/categories.js'
 import returnRouter from './routes/returns.js'
+import complaintRouter from './routes/complaints.js'
 
 import createCheckoutSession from './routes/checkout.js'
 import webhook from './routes/webhook.js'
@@ -42,6 +43,7 @@ app.use('/api/orders', orderRouter)
 app.use('/api/sliders', sliderRouter)
 app.use('/api/categories', categoryRouter)
 app.use('/api/returns', returnRouter)
+app.use('/api/complaints', complaintRouter)
 
 //Stripe payment - no router
 app.post('/api/create-checkout-session', createCheckoutSession)

@@ -22,6 +22,10 @@ const orderSchema = new mongoose.Schema({
     has_returned: {
         type: Boolean,
         default: false
+    },
+    has_complained: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true

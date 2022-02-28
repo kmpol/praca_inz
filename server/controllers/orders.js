@@ -252,3 +252,14 @@ export const hasReturnedOrder = async (req, res) => {
         res.status(500).send(e)
     }
 }
+
+export const hasComplainedOrder = async (req, res) => {
+    try {
+        const order = await Order.findByIdAndUpdate(req.params.id)
+        order.has_complained = true
+        await order.save()
+        res.status(200).send(order)
+    } catch (e) {
+        res.status(500).send(e)
+    }
+}

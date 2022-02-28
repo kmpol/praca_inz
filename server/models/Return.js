@@ -9,7 +9,7 @@ const returnSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    oryginal_order: {
+    original_order: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Order'
     },

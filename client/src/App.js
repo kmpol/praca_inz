@@ -14,6 +14,7 @@ import AccountPageOrders from './pages/AccountPageOrders'
 import AccountPageReturns from './pages/AccountPageReturns'
 import AccountPageComplaints from './pages/AccountPageComplaints'
 import CreateReturnPage from './pages/CreateReturnPage'
+import CreateComplaintPage from './pages/CreateComplaintPage'
 
 import ProductsPage from './pages/ProductsPage'
 import ProductPage from './pages/ProductPage'
@@ -70,6 +71,7 @@ const App = () => {
                     <Route exact path="/account/returns" component={AccountPageReturns} />
                     <Route exact path="/account/complaints" component={AccountPageComplaints} />
                     <Route exact path="/account/returns/createReturn/:id" component={CreateReturnPage} />
+                    <Route exact path="/account/complaints/createComplaint/:id" component={CreateComplaintPage} />
 
                     {/* Admin dashboard realted routes */}
                     <Route exact path="/admin/dashboard" component={DashboardPage} />

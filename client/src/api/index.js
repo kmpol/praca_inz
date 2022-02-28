@@ -56,9 +56,13 @@ export const getAdminStatsLast30DaysOrders = async () => await API.get(`${url}/o
 //Orders
 export const getClientLoggedOrders = async () => await API.get(`${url}/orders/client`)
 export const hasReturnedOrder = async (id) => await API.put(`${url}/orders/hasreturned/${id}`)
+export const hasComplainedOrder = async (id) => await API.put(`${url}/orders/hascomplained/${id}`)
 
 //Returns
 export const createReturn = async (products, id) => await API.post(`${url}/returns/${id}`, { products: [...products] })
 export const getUserReturn = async () => await API.get(`${url}/returns`)
 export const getReturnsAdmin = async () => await API.get(`${url}/returns/admin`)
 export const updateReturnStatus = async (id, status) => await API.put(`${url}/returns/${id}/updateStatus`, status)
+
+//Complaints
+export const createComplaint = async (message, id) => await API.post(`${url}/complaints/${id}`, { complaint: message })

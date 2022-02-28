@@ -20,3 +20,13 @@ export const hasReturned = (id, history) => async (dispatch) => {
         console.log(e.message)
     }
 }
+
+export const hasComplained = (id, history) => async (dispatch) => {
+    try {
+        const { data } = await api.hasComplainedOrder(id)
+
+        history.push('/account/complaints')
+    } catch (e) {
+        console.log(e.message)
+    }
+}
