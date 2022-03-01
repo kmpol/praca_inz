@@ -16,7 +16,8 @@ import orders from "./orders";
 import returns from "./returns";
 import returnsAdmin from './admin/returns';
 import complaints from './complaints';
-import complaintsAdmin from './admin/complaints'
+import complaintsAdmin from './admin/complaints';
+import shopConfig from "./admin/shopConfig";
 
 export default combineReducers({
     auth,
@@ -35,5 +36,6 @@ export default combineReducers({
     returns,
     returnsAdmin,
     complaints,
-    complaintsAdmin
+    complaintsAdmin,
+    shopConfig
 })

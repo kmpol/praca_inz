@@ -38,6 +38,7 @@ import CreateSliderPage from './pages/admin/CreateSliderPage'
 import EditSliderPage from './pages/admin/EditSliderPage'
 import ReturnsPage from './pages/admin/ReturnsPage'
 import ComplaintsPage from './pages/admin/ComplaintsPage'
+import ConfigPage from './pages/admin/ConfigPage'
 
 //Styles
 import './styles.css'
@@ -89,6 +90,7 @@ const App = () => {
                     <Route exact path="/admin/dashboard/sliders/manageSliders" component={ManageSliderPage} />
                     <Route exact path="/admin/dashboard/returns" component={ReturnsPage} />
                     <Route exact path="/admin/dashboard/complaints" component={ComplaintsPage} />
+                    <Route exact path="/admin/dashboard/config" component={ConfigPage} />
 
                     <Route path="*" component={NotFoundPage} />
                 </Switch>
