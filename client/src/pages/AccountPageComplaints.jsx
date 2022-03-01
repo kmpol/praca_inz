@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 import Navbar from '../components/Navbar'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserComplaints } from '../actions/complaints'
+import ComplaintList from '../components/ComplaintList'
 
 const Container = styled.div`
     display: flex;
@@ -35,6 +38,14 @@ const SideBarOption = styled(Link)`
 `
 
 const AccountPageComplaints = () => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getUserComplaints())
+    }, [])
+
+    const complaints = useSelector(state => state.complaints)
+    console.log(complaints)
     return (
         <Container>
             <Navbar />
@@ -45,7 +56,7 @@ const AccountPageComplaints = () => {
                     <SideBarOption to="/account/complaints">Complaints</SideBarOption>
                 </SideBar>
                 <ContentWrapper>
-                    COMPLAINTS
+                    <ComplaintList complaints={complaints} />
                 </ContentWrapper>
             </Wrapper>
         </Container >

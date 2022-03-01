@@ -14,3 +14,26 @@ export const createComplaint = async (req, res) => {
 
 
 }
+
+export const getComplaints = async (req, res) => {
+    try {
+        const user = req.user
+        const userComplaints = await Complaint.find({ owner: user._id })
+        if (!userComplaints) {
+            return res.status(404).send({ error: "Returns not found" })
+        }
+        res.status(200).send(userComplaints)
+    } catch (e) {
+        res.status(500).send(e)
+    }
+}
+
+export const getComplaintsAdmin = async (req, res) => {
+    try {
+        const complaints = await Complaint.find()
+        if (!complaints) return res.status(404).send({ error: "Complaints not found!" })
+        res.status(200).send(complaints)
+    } catch (e) {
+        res.status(500).send(e)
+    }
+}

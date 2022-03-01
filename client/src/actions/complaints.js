@@ -12,3 +12,13 @@ export const createComplaint = (message, id, history) => async (dispatch) => {
         console.log(e.message)
     }
 }
+
+export const getUserComplaints = () => async (dispatch) => {
+    try {
+        const { data } = await api.getUserComplaints()
+
+        dispatch({ type: 'GET_COMPLAINTS', payload: data })
+    } catch (e) {
+        console.log(e.message)
+    }
+}
