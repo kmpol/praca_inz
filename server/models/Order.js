@@ -16,8 +16,8 @@ const orderSchema = new mongoose.Schema({
         product: {
             type: mongoose.Schema.Types.ObjectId, ref: 'Product'
         },
-        quantity: Number
-
+        quantity: Number,
+        unit_price: Number
     }],
     has_returned: {
         type: Boolean,

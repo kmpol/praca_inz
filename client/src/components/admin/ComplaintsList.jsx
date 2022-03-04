@@ -25,7 +25,7 @@ const ComplaintsList = () => {
         <Container>
             {
                 complaints?.length > 0 ? (
-                    complaints.sort((a, b) => a.createdAt > b.createdAt ? -1 : 1).map((item) => <ComplaintItem key={item._id} item={item} />)
+                    complaints.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1).map((item) => <ComplaintItem key={item._id} item={item} id={item._id} />)
                 ) : (
                     "No complaints"
                 )

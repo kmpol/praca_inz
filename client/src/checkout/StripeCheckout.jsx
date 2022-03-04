@@ -41,7 +41,8 @@ const StripeCheckout = () => {
                     product_data: {
                         name: item.name,
                         metadata: {
-                            productId: item._id
+                            productId: item._id,
+                            price: Math.round(item.price * 100)
                         }
                     }
                 }

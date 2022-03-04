@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
@@ -15,10 +16,11 @@ const Container = styled.div`
 const DetailsWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    flex: 1;
 `
 
 const ReturnDetail = styled.p`
-
+    display: ${props => props.num === 0 ? 'none' : ''};
 `
 const ReturnStatusContainer = styled.div`
     flex: 1;
@@ -38,6 +40,12 @@ const Select = styled.select`
 
 const Option = styled.option``
 
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+`
+
 const ReturnItem = ({ item }) => {
 
     const dispatch = useDispatch()
@@ -48,11 +56,20 @@ const ReturnItem = ({ item }) => {
         dispatch(updateReturnStatus(item._id, { status }))
     }
 
+    console.log(item)
+
     return (
         <Container>
             <DetailsWrapper>
                 <ReturnDetail>{item._id}</ReturnDetail>
                 <ReturnDetail>{moment(item.createdAt).format('DD-MM-YYYY hh:mm')}</ReturnDetail>
+                {
+                    item.products.map((product) => {
+                        return <ReturnDetail num={product.quantity}>Product(s): {product.product_id.name} x {product.quantity} ({product.product_id._id})</ReturnDetail>
+                    })
+                }
+                Order id:
+                <StyledLink to={`/admin/dashboard/orders/${item.original_order}`}>{item.original_order}</StyledLink>
             </DetailsWrapper>
             <ReturnStatusContainer>
                 <ReturnStatus>Status: {item.status}</ReturnStatus>

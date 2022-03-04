@@ -14,67 +14,26 @@ const Wrapper = styled.div`
     margin-top: 12px;
 `
 
-const ProductsWrapper = styled.div`
-    display: flex;
-    margin-top: 10px;
-`
-const ImageContainer = styled.div`
-    width: 5vw;
-    height: 5vw;
-`
 const OrderStatus = styled.p`
     font-weight: 600;
+    color: ${props => props.status === 'accepted' ? 'green' : props.status === 'rejected' ? "red" : "#c7a903"};
 `
 
-const ProductDetails = styled.p`
-    display:flex;
-    align-items:center;
-    flex:1;
-    justify-content: center;
-    &:nth-child(2) {
-        justify-content: flex-start;
-        margin-left: 6px;
-    }
-`
-
-const ProductImage = styled.img`
-    width: 100%;
-    height: 100%;
-`
-
-const PriceInfo = styled.p`
-    margin-top: 12px;
-    &:nth-child(6) {
-        font-weight: 600;
-    }
-`
-
-const ButtonContainer = styled.div`
-        display: flex;
-`
-
-const Button = styled(Link)`
-    text-decoration: none;
-    color: black;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 0px;
-    transition: 0.4s;
-    &:hover{
-        background-color: black;
-        color: white;
-        cursor: pointer;
-    }
+const ReturnDetail = styled.p`
+    display: ${props => props.num === 0 ? "none" : ""};
 `
 
 const ReturnItem = ({ item }) => {
     console.log(item)
     return (
         <Wrapper>
-            <OrderStatus>status: {item.status}</OrderStatus>
-            <OrderStatus>Return date: {moment(item.createdAt).format('DD-MM-YYYY hh:mm')}</OrderStatus>
+            <OrderStatus status={item.status}>status: {item.status}</OrderStatus>
+            <ReturnDetail>Return date: {moment(item.createdAt).format('DD-MM-YYYY hh:mm')}</ReturnDetail>
+            {
+                item.products.map((product) => {
+                    return <ReturnDetail num={product.quantity}>Product(s): {product.product_id.name} x {product.quantity} ({product.product_id._id})</ReturnDetail>
+                })
+            }
         </Wrapper>
     )
 }

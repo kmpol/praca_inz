@@ -187,6 +187,7 @@ const OrderPage = () => {
                                                                 <ProductSize>{product.product.size}</ProductSize>
                                                                 <ProductColor>{product.product.color}</ProductColor>
                                                                 <ProductQuantity>{product.quantity}pc(s)</ProductQuantity>
+                                                                <ProductQuantity>{(product.unit_price / 100)}USD</ProductQuantity>
                                                             </ProductInfoContainer>
                                                         </Product>
                                                     )

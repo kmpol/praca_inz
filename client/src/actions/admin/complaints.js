@@ -10,3 +10,14 @@ export const getComplaintsAdmin = () => async (dispatch) => {
         console.log(e.message)
     }
 }
+
+export const createRespond = (response, id) => async (dispatch) => {
+    try {
+        const { data } = await api.createResponse(response, id)
+
+        dispatch({ type: 'UPDATE_COMPLAINT', payload: data })
+
+    } catch (e) {
+
+    }
+}

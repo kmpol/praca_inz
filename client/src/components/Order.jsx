@@ -43,13 +43,11 @@ const ProductImage = styled.img`
 
 const PriceInfo = styled.p`
     margin-top: 12px;
-    &:nth-child(6) {
-        font-weight: 600;
-    }
+    font-weight: ${props => props.total ? 600 : ""};
 `
 
 const ButtonContainer = styled.div`
-        display: flex;
+display: flex;
 `
 
 const Button = styled(Link)`
@@ -61,12 +59,12 @@ const Button = styled(Link)`
     justify-content: center;
     padding: 10px 0px;
     transition: 0.4s;
-    &:hover{
+        &:hover{
         background-color: black;
         color: white;
         cursor: pointer;
     }
-    
+
 `
 
 const Order = ({ item }) => {
@@ -89,7 +87,7 @@ const Order = ({ item }) => {
             }
             <PriceInfo>Subtotal: {item.payment.amount / 100 - item.payment.shipping_amount / 100} USD</PriceInfo>
             <PriceInfo>Shipping: {item.payment.shipping_amount / 100} USD</PriceInfo>
-            <PriceInfo>Total: {item.payment.amount / 100} USD</PriceInfo>
+            <PriceInfo total={true}>Total: {item.payment.amount / 100} USD</PriceInfo>
             <ButtonContainer>
                 {
                     !item.has_returned && <Button to={`/account/returns/createReturn/${item._id}`}>Return</Button>

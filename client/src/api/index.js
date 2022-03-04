@@ -68,6 +68,7 @@ export const updateReturnStatus = async (id, status) => await API.put(`${url}/re
 export const createComplaint = async (message, id) => await API.post(`${url}/complaints/${id}`, { complaint: message })
 export const getUserComplaints = async () => await API.get(`${url}/complaints`)
 export const getComplaintsAdmin = async () => await API.get(`${url}/complaints/admin`)
+export const createResponse = async (response, id) => await API.put(`${url}/complaints/sendRespond/${id}`, response)
 
 //Shop config
 export const getShopConfig = async () => await API.get(`${url}/shopConfig`)

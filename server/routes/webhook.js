@@ -9,16 +9,21 @@ stripe(process.env.STRIPE_KEY)
 
 const getMyPRODUCTS = async (converted) => {
     const array = []
-
+    console.log('converted', converted)
     for (let i = 0; i < converted.length; i++) {
+        console.log('converted[i]', converted[i])
         const id = converted[i].product_id
         const quantity = converted[i].quantity
+        const unit_price = converted[i].price
         const response = await getDataInfo(`https://api.stripe.com/v1/products/${id}`)
+        console.log('response', response)
         array.push({
             product: response.metadata.productId,
-            quantity
+            quantity,
+            unit_price
         })
     }
+    console.log('array', array)
     return array
 }
 
@@ -63,18 +68,21 @@ const webhook = async (request, response) => {
             let products;
             try {
                 products = await getStripeProducts(session.id)
+                console.log('products', products)
             } catch (e) {
 
             }
             const converted = products.map((product) => ({
                 product_id: product.price.product,
-                quantity: product.quantity
+                quantity: product.quantity,
+                price: product.price.unit_amount
             }))
             let myProductsId;
             let info;
 
             try {
                 myProductsId = await getMyPRODUCTS(converted)
+                console.log('myProductsId', myProductsId)
                 info = {
                     address: {
                         name: session.shipping.name,
@@ -94,6 +102,7 @@ const webhook = async (request, response) => {
             } catch (e) {
 
             }
+            console.log('info', info)
             await createOrder(info)
 
         default:
