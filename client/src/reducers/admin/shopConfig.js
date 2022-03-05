@@ -4,6 +4,8 @@ export default (shopConfig = [], action) => {
             return action.payload
         case 'UPDATE_SHOP_CONFIG':
             return action.payload
+        case 'CREATE_SHOP_CONFIG':
+            return action.payload
         default:
             return shopConfig
     }

@@ -73,3 +73,4 @@ export const createResponse = async (response, id) => await API.put(`${url}/comp
 //Shop config
 export const getShopConfig = async () => await API.get(`${url}/shopConfig`)
 export const updateShopConfig = async (updates) => await API.put(`${url}/shopConfig`, updates)
+export const createShopConfig = async (config) => await API.post(`${url}/shopConfig`, config)

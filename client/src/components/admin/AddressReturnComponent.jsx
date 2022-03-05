@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router'
 import styled from 'styled-components'
-import { getShopConfig, updateShopConfig } from '../../actions/admin/shopConfig'
+import { createShopConfig, getShopConfig, updateShopConfig } from '../../actions/admin/shopConfig'
 
 import Sidebar from './Sidebar'
 
@@ -37,7 +37,7 @@ const FormButton = styled.button``
 
 
 
-const EmailComponent = ({ address }) => {
+const EmailComponent = ({ address, exists }) => {
     const dispatch = useDispatch()
     const [addressState, setAddressState] = useState({ ...address })
 
@@ -56,7 +56,12 @@ const EmailComponent = ({ address }) => {
 
     const onEmailClick = (e) => {
         e.preventDefault()
-        dispatch(updateShopConfig({ return_address: addressState }))
+        if (exists) {
+            dispatch(updateShopConfig({ return_address: addressState }))
+
+        } else {
+            dispatch(createShopConfig({ return_address: addressState }))
+        }
     }
 
     return (
@@ -64,12 +69,12 @@ const EmailComponent = ({ address }) => {
 
             <Form>
                 Shop returns address:
-                <FormInput name='name' type="text" defaultValue={address?.name} onChange={onAddressChange} />
-                <FormInput name='line1' type="text" defaultValue={address?.line1} onChange={onAddressChange} />
-                <FormInput name='line2' type="text" defaultValue={address?.line2} onChange={onAddressChange} />
-                <FormInput name='zip' type="text" defaultValue={address?.zip} onChange={onAddressChange} />
-                <FormInput name='city' type="text" defaultValue={address?.city} onChange={onAddressChange} />
-                <FormInput name='country' type="text" defaultValue={address?.country} onChange={onAddressChange} />
+                <FormInput name='name' type="text" defaultValue={address?.name} onChange={onAddressChange} placeholder="name" />
+                <FormInput name='line1' type="text" defaultValue={address?.line1} onChange={onAddressChange} placeholder="address line1" />
+                <FormInput name='line2' type="text" defaultValue={address?.line2} onChange={onAddressChange} placeholder="address line2" />
+                <FormInput name='zip' type="text" defaultValue={address?.zip} onChange={onAddressChange} placeholder="zip-code" />
+                <FormInput name='city' type="text" defaultValue={address?.city} onChange={onAddressChange} placeholder="city" />
+                <FormInput name='country' type="text" defaultValue={address?.country} onChange={onAddressChange} placeholder="country" />
                 <FormButton onClick={onEmailClick}>Save Address</FormButton>
             </Form>
         </Container>

@@ -1,5 +1,26 @@
 import ShopConfig from "../models/ShopConfig.js"
 
+const notSetConfig = {
+    contact_email: "",
+    contact_phone_number: "",
+    shop_address: {
+        name: "",
+        line1: "",
+        line2: "",
+        zip: "",
+        city: "",
+        country: ""
+    },
+    return_address: {
+        name: "",
+        line1: "",
+        line2: "",
+        zip: "",
+        city: "",
+        country: ""
+    }
+}
+
 export const createShopConfig = async (req, res) => {
     try {
         await ShopConfig.isConfigExists()
@@ -14,7 +35,7 @@ export const createShopConfig = async (req, res) => {
 export const getShopConfig = async (req, res) => {
     try {
         const shopConfig = await ShopConfig.findOne()
-        if (!shopConfig) return res.status(404).send({ error: "Config not found" })
+        if (!shopConfig) return res.status(404).send({ error: 'Config not found' })
         res.status(200).send(shopConfig)
     } catch (e) {
         res.status(500).send(e.message)

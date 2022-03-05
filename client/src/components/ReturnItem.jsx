@@ -28,7 +28,7 @@ const ReturnItem = ({ item }) => {
     return (
         <Wrapper>
             <OrderStatus status={item.status}>status: {item.status}</OrderStatus>
-            <ReturnDetail>Return date: {moment(item.createdAt).format('DD-MM-YYYY hh:mm')}</ReturnDetail>
+            <ReturnDetail>Return date: {moment(item.createdAt).format('DD-MM-YYYY HH:mm')}</ReturnDetail>
             {
                 item.products.map((product) => {
                     return <ReturnDetail num={product.quantity}>Product(s): {product.product_id.name} x {product.quantity} ({product.product_id._id})</ReturnDetail>

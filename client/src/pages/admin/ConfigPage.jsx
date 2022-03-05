@@ -27,23 +27,32 @@ const ContentContainer = styled.div`
 
 const ConfigPage = () => {
     const dispatch = useDispatch()
-
+    const [exists, setExists] = useState(true)
     const configShop = useSelector(state => state.shopConfig)
 
     useEffect(() => {
         dispatch(getShopConfig())
     }, [])
 
+    useEffect(() => {
+        if (Object.keys(configShop).length === 0) {
+            setExists(false)
+        } else {
+            setExists(true)
+        }
+    }, [configShop])
+
     console.log(configShop)
+    console.log(exists)
 
     return (
         <Container>
             <Sidebar />
             <ContentContainer>
-                <EmailComponent email={configShop.contact_email} />
-                <PhoneComponent phone={configShop.contact_phone_number} />
-                <AddressComponent address={configShop.shop_address} />
-                <AddressReturnComponent address={configShop.return_address} />
+                <EmailComponent email={configShop.contact_email} exists={exists} />
+                <PhoneComponent phone={configShop.contact_phone_number} exists={exists} />
+                <AddressComponent address={configShop.shop_address} exists={exists} />
+                <AddressReturnComponent address={configShop.return_address} exists={exists} />
             </ContentContainer>
         </Container>
     )

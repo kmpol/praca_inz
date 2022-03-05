@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router'
 import styled from 'styled-components'
-import { getShopConfig, updateShopConfig } from '../../actions/admin/shopConfig'
+import { createShopConfig, getShopConfig, updateShopConfig } from '../../actions/admin/shopConfig'
 
 import Sidebar from '../../components/admin/Sidebar'
 
@@ -36,7 +36,7 @@ const FormButton = styled.button``
 
 
 
-const EmailComponent = ({ email }) => {
+const EmailComponent = ({ email, exists }) => {
     const dispatch = useDispatch()
     const [emailState, setEmailState] = useState(email)
 
@@ -48,14 +48,18 @@ const EmailComponent = ({ email }) => {
 
     const onEmailClick = (e) => {
         e.preventDefault()
-        dispatch(updateShopConfig({ contact_email: emailState }))
+        if (exists) {
+            dispatch(updateShopConfig({ contact_email: emailState }))
+        } else {
+            dispatch(createShopConfig({ contact_email: emailState }))
+        }
     }
 
     return (
         <Container>
             <Form>
                 email:
-                <FormInput type="text" defaultValue={email} onChange={onEmailChange} />
+                <FormInput type="text" defaultValue={email} onChange={onEmailChange} placeholder="shop email" />
                 <FormButton onClick={onEmailClick}>Save Email</FormButton>
             </Form>
         </Container>
