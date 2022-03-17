@@ -11,6 +11,8 @@ import EmailComponent from '../../components/admin/EmailComponent'
 import PhoneComponent from '../../components/admin/PhoneComponent'
 import AddressComponent from '../../components/admin/AddressComponent'
 import AddressReturnComponent from '../../components/admin/AddressReturnComponent'
+import TermsOfUseComponent from '../../components/admin/TermsOfUseComponent'
+import PrivacyPolicyComponent from '../../components/admin/PrivacyPolicyComponent'
 
 const Container = styled.div`
     display: flex;
@@ -53,6 +55,8 @@ const ConfigPage = () => {
                 <PhoneComponent phone={configShop.contact_phone_number} exists={exists} />
                 <AddressComponent address={configShop.shop_address} exists={exists} />
                 <AddressReturnComponent address={configShop.return_address} exists={exists} />
+                <TermsOfUseComponent terms={configShop.terms_of_use} exists={exists} />
+                <PrivacyPolicyComponent privacy={configShop.privacy_policy} exists={exists} />
             </ContentContainer>
         </Container>
     )

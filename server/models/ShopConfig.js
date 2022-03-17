@@ -27,6 +27,8 @@ const shopConfigSchema = new mongoose.Schema({
         city: String,
         country: String
     },
+    terms_of_use: String,
+    privacy_policy: String
 }, {
     timestamps: true
 })
