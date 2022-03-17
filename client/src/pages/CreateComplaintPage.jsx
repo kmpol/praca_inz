@@ -11,6 +11,7 @@ import ReturnProductItem from '../components/ReturnProductItem'
 import { getClientOrders, hasComplained, hasReturned } from '../actions/orders'
 import { createReturn } from '../actions/returns'
 import { createComplaint } from '../actions/complaints'
+import { getShopConfig } from '../api'
 
 const Container = styled.div`
     display: flex;
@@ -110,6 +111,7 @@ const AddressZip = styled.p``
 const CreateReturnPage = () => {
     const [userComplaint, setUserComplaint] = useState("")
     const [error, setError] = useState("")
+    const [config, setConfig] = useState("")
     const location = useLocation()
     const dispatch = useDispatch()
     const history = useHistory()
@@ -117,6 +119,11 @@ const CreateReturnPage = () => {
 
     useEffect(() => {
         dispatch(getClientOrders())
+        getShopConfig().then((res) => {
+            setConfig(res.data)
+        }).catch((e) => {
+            console.log(e)
+        })
     }, [])
 
     const orders = useSelector(state => state.orders)
@@ -159,12 +166,11 @@ const CreateReturnPage = () => {
                     <InfoTitle>Pamiętaj!</InfoTitle>
                     <InfoDetail>W reklamacji dodaj informacje o dacie usterki, opisie usterki, gdzie ona się znajduje. Wyślij nam paczkę na poniszy adres z dopiskiem "reklamacja"</InfoDetail>
                     <AddressTitle>Adres do reklamacji</AddressTitle>
-                    <AddressName>myShop sp. z o.o.</AddressName>
-                    <AddressDetail>Testowa 13/1</AddressDetail>
-                    <AddressDetail></AddressDetail>
+                    <AddressName>{config?.shop_address ? config.shop_address.name : "Loading..."}</AddressName>
+                    <AddressDetail>{config?.shop_address ? config.shop_address.line1 : "Loading..."}</AddressDetail>
+                    {config?.shop_address?.line2 && "" && <AddressDetail>{config?.shop_address.line2}</AddressDetail>}
                     <AddressContainer>
-                        <AddressZip>85-829</AddressZip>
-                        <AddressDetail>Bydgoszcz</AddressDetail>
+                        <AddressDetail>{config?.shop_address ? config.shop_address.zip : "Loading..."} {config?.shop_address ? config.shop_address.city : "Loading..."}</AddressDetail>
                     </AddressContainer>
                 </InfoContainer>
             </Wrapper>

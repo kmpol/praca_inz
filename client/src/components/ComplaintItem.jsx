@@ -27,13 +27,18 @@ const UserComplaint = styled.textarea`
 
 
 const ComplaintItem = ({ item }) => {
+    const theString = item?.admin_response
+    var theArray = theString.split(/\n+/);
+    console.log(theArray)
     return (
         <Wrapper>
             <ComplaintDetail>Complaint date: {moment(item.createdAt).format('DD-MM-YYYY hh:mm')}</ComplaintDetail>
             <ComplaintDetail>Your complaint:</ComplaintDetail>
             <UserComplaint disabled={true} defaultValue={item?.user_complaint}></UserComplaint>
             <ComplaintDetail>Shop response:</ComplaintDetail>
-            {item?.admin_response ? item?.admin_response : "Shop has not responded yet"}
+            {
+                theArray.map((item) => <p>{item}</p>)
+            }
         </Wrapper>
     )
 }
