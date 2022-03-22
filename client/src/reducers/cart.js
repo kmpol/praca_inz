@@ -61,6 +61,9 @@ const cartReducer = (state = cartDefaultState, action) => {
             const idSubtract = action.id
             const productToEditSubtract = cart.products.find((product) => product._id === idSubtract)
             const newProductsSubtract = cart.products.filter((product) => product._id != productToEditSubtract._id)
+            if (productToEditSubtract.quantityOfItem === 1) {
+                return state
+            }
             productToEditSubtract.quantityOfItem -= 1
             const newProductsToAddSubtract = [...newProductsSubtract, productToEditSubtract]
             storeCart({

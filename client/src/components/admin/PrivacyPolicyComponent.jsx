@@ -27,7 +27,7 @@ const Form = styled.form`
 
 const FormInput = styled.textarea`
     margin: 1vh 0;
-    min-height: 24vh;
+    min-height: 12vh;
 `
 
 const FormButton = styled.button``
@@ -54,7 +54,7 @@ const PrivacyPolicyComponent = ({ privacy, exists }) => {
     return (
         <Form>
             Shop privacy policy:
-            <FormInput name='terms' type="text" defaultValue={privacyState} onChange={onTermsChange} placeholder="name" />
+            <FormInput name='terms' type="text" defaultValue={privacy} onChange={onTermsChange} placeholder="name" />
             <FormButton onClick={onEmailClick}>Save privacy policy</FormButton>
         </Form>
     )

@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 //Pages
 import HomePage from './pages/HomePage'
+import TermsPage from './pages/TermsPage'
+import PrivacyPage from './pages/PrivacyPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import ForgotPasswordPage from './pages/ForgotPasswordPage'
@@ -39,12 +41,13 @@ import EditSliderPage from './pages/admin/EditSliderPage'
 import ReturnsPage from './pages/admin/ReturnsPage'
 import ComplaintsPage from './pages/admin/ComplaintsPage'
 import ConfigPage from './pages/admin/ConfigPage'
-
+import PrivateRoute from './utils/PrivateRoute'
 //Styles
 import './styles.css'
 import ManageSliderPage from './pages/admin/ManageSliderPage'
 
 const App = () => {
+
     return (
         <>
             <Router>
@@ -54,6 +57,8 @@ const App = () => {
                     <Route exact path="/products" component={ProductsPage} />
                     <Route path="/product/:id" component={ProductPage} />
                     <Route exact path="/cart" component={CartPage} />
+                    <Route exact path="/terms-of-use" component={TermsPage} />
+                    <Route exact path="/privacy-policy" component={PrivacyPage} />
 
                     {/* Checkout realted routes */}
                     <Route exact path="/checkout" component={Checkout} />
@@ -76,21 +81,21 @@ const App = () => {
                     <Route exact path="/account/complaints/createComplaint/:id" component={CreateComplaintPage} />
 
                     {/* Admin dashboard realted routes */}
-                    <Route exact path="/admin/dashboard" component={DashboardPage} />
-                    <Route exact path="/admin/dashboard/users" component={UsersPage} />
-                    <Route path="/admin/dashboard/users/:id" component={UserPage} />
-                    <Route exact path="/admin/dashboard/orders" component={OrdersPage} />
-                    <Route path="/admin/dashboard/orders/:id" component={OrderPage} />
-                    <Route exact path="/admin/dashboard/products" component={ProductsPageAdmin} />
-                    <Route exact path="/admin/dashboard/products/addProduct" component={AddProductPage} />
-                    <Route exact path="/admin/dashboard/categories/addCategory" component={AddCategoryPage} />
-                    <Route exact path="/admin/dashboard/products/editProduct/:id" component={EditProductPage} />
-                    <Route exact path="/admin/dashboard/sliders/createSlider" component={CreateSliderPage} />
-                    <Route exact path="/admin/dashboard/sliders/editSlider/:id" component={EditSliderPage} />
-                    <Route exact path="/admin/dashboard/sliders/manageSliders" component={ManageSliderPage} />
-                    <Route exact path="/admin/dashboard/returns" component={ReturnsPage} />
-                    <Route exact path="/admin/dashboard/complaints" component={ComplaintsPage} />
-                    <Route exact path="/admin/dashboard/config" component={ConfigPage} />
+                    <PrivateRoute exact path="/admin/dashboard" component={DashboardPage} />
+                    <PrivateRoute exact path="/admin/dashboard/users" component={UsersPage} />
+                    <PrivateRoute path="/admin/dashboard/users/:id" component={UserPage} />
+                    <PrivateRoute exact path="/admin/dashboard/orders" component={OrdersPage} />
+                    <PrivateRoute path="/admin/dashboard/orders/:id" component={OrderPage} />
+                    <PrivateRoute exact path="/admin/dashboard/products" component={ProductsPageAdmin} />
+                    <PrivateRoute exact path="/admin/dashboard/products/addProduct" component={AddProductPage} />
+                    <PrivateRoute exact path="/admin/dashboard/categories/addCategory" component={AddCategoryPage} />
+                    <PrivateRoute exact path="/admin/dashboard/products/editProduct/:id" component={EditProductPage} />
+                    <PrivateRoute exact path="/admin/dashboard/sliders/createSlider" component={CreateSliderPage} />
+                    <PrivateRoute exact path="/admin/dashboard/sliders/editSlider/:id" component={EditSliderPage} />
+                    <PrivateRoute exact path="/admin/dashboard/sliders/manageSliders" component={ManageSliderPage} />
+                    <PrivateRoute exact path="/admin/dashboard/returns" component={ReturnsPage} />
+                    <PrivateRoute exact path="/admin/dashboard/complaints" component={ComplaintsPage} />
+                    <PrivateRoute exact path="/admin/dashboard/config" component={ConfigPage} />
 
                     <Route path="*" component={NotFoundPage} />
                 </Switch>

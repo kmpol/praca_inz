@@ -218,7 +218,7 @@ const CartPage = () => {
                 <ItemListContainer>
                     {
                         cart?.products?.length > 0 ? (
-                            cart.products.sort((a, b) => a.price - b.price).map((product) => (
+                            cart.products.sort((a, b) => a.name >= b.name ? -1 : 1).map((product) => (
                                 <Product key={product._id}>
                                     <Image src={product.img} />
                                     <InfoContainer>

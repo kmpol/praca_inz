@@ -11,7 +11,7 @@ import Sidebar from './Sidebar'
 const Container = styled.div`
     display: flex;
     width: 100%;
-    margin-bottom: 5vh;
+    margin-bottom: 1vh;
 
 `
 

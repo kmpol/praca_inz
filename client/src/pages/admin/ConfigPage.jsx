@@ -17,7 +17,6 @@ import PrivacyPolicyComponent from '../../components/admin/PrivacyPolicyComponen
 const Container = styled.div`
     display: flex;
     width: 100%;
-
 `
 
 const ContentContainer = styled.div`

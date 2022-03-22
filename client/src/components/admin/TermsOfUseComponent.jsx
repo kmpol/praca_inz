@@ -27,7 +27,7 @@ const Form = styled.form`
 
 const FormInput = styled.textarea`
     margin: 1vh 0;
-    min-height: 24vh;
+    min-height: 12vh;
 `
 
 const FormButton = styled.button``
@@ -54,7 +54,7 @@ const TermsOfUseComponent = ({ terms, exists }) => {
     return (
         <Form>
             Shop terms of use:
-            <FormInput name='terms' type="text" defaultValue={termsState} onChange={onTermsChange} placeholder="name" />
+            <FormInput name='terms' type="text" defaultValue={terms} onChange={onTermsChange} placeholder="name" />
             <FormButton onClick={onEmailClick}>Save terms of use</FormButton>
         </Form>
     )

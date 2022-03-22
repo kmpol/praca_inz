@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import { getShopConfig } from '../api'
 
 const Container = styled.div`
@@ -33,7 +34,7 @@ color: white;
     display: flex;
     text-align: justify;
     margin: 8px;
-    font-size: 1.2rem;
+    font-size: 1rem;
 `
 
 const Second = styled.div`
@@ -46,6 +47,12 @@ const Second = styled.div`
 
 const Third = styled.div`
     flex: 1;
+`
+
+const StyledLink = styled(Link)`
+    color: white;
+    text-decoration: none;
+    display: flex;
 `
 
 const Footer = () => {
@@ -82,6 +89,11 @@ const Footer = () => {
                 <Description>{config?.return_address ? config.return_address.zip : "Loading..."} {config?.return_address ? config.shop_address.city : "Loading..."}</Description>
                 <Description>{config?.return_address ? config.return_address.country : "Loading..."}</Description>
             </Second>
+            <Third>
+                <Title>Przydatne linki:</Title>
+                <StyledLink to="/terms-of-use">Regulamin</StyledLink>
+                <StyledLink to="privacy-policy">Polityka prywatności</StyledLink>
+            </Third>
         </Container>
     )
 }
