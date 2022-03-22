@@ -42,6 +42,7 @@ import ReturnsPage from './pages/admin/ReturnsPage'
 import ComplaintsPage from './pages/admin/ComplaintsPage'
 import ConfigPage from './pages/admin/ConfigPage'
 import PrivateRoute from './utils/PrivateRoute'
+import UserRoute from './utils/UserRoute'
 //Styles
 import './styles.css'
 import ManageSliderPage from './pages/admin/ManageSliderPage'
@@ -73,12 +74,12 @@ const App = () => {
                     <Route path="/resetpassword/:resetToken" component={ResetPasswordPage} />
 
                     {/* Account related routes */}
-                    <Route exact path="/account" component={AccountPage} />
-                    <Route exact path="/account/orders" component={AccountPageOrders} />
-                    <Route exact path="/account/returns" component={AccountPageReturns} />
-                    <Route exact path="/account/complaints" component={AccountPageComplaints} />
-                    <Route exact path="/account/returns/createReturn/:id" component={CreateReturnPage} />
-                    <Route exact path="/account/complaints/createComplaint/:id" component={CreateComplaintPage} />
+                    <UserRoute exact path="/account" component={AccountPage} />
+                    <UserRoute exact path="/account/orders" component={AccountPageOrders} />
+                    <UserRoute exact path="/account/returns" component={AccountPageReturns} />
+                    <UserRoute exact path="/account/complaints" component={AccountPageComplaints} />
+                    <UserRoute exact path="/account/returns/createReturn/:id" component={CreateReturnPage} />
+                    <UserRoute exact path="/account/complaints/createComplaint/:id" component={CreateComplaintPage} />
 
                     {/* Admin dashboard realted routes */}
                     <PrivateRoute exact path="/admin/dashboard" component={DashboardPage} />

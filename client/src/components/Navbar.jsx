@@ -81,7 +81,7 @@ const Navbar = () => {
     }
 
     const onLogoutClick = (e) => {
-        dispatch(logoutUser())
+        dispatch(logoutUser(history))
         setProfile(null)
     }
 

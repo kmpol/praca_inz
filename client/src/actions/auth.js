@@ -25,11 +25,11 @@ export const loginUser = (userInfo, history, setError, setIsFetching) => async (
     }
 }
 
-export const logoutUser = () => async (dispatch) => {
+export const logoutUser = (history) => async (dispatch) => {
     try {
         await api.logoutUser()
-
         dispatch({ type: 'LOGOUT_USER' })
+        history.push('/')
     } catch (e) {
         console.log(e.message)
     }
